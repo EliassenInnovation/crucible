@@ -18,7 +18,6 @@
         <module>stepdefinitionlibrary</module>
         <module>taglibrary</module>
         <module>web</module>
-        <module>demo-framework</module>
     </modules>
 
     <repositories>
