@@ -1,0 +1,46 @@
+{
+  "AvatarCharacters": {
+    "urlPart": "characters",
+    "method": "GET"
+  },
+  "CallingCode":{
+    "urlPart": "callingcode/%s",
+    "method": "GET"
+  },
+  "DemoJar16": {
+    "urlPart": "job/build_demo_jar/16/api/json",
+    "method": "GET"
+  },
+  "DemoWebApi": {
+    "urlPart": "job/demo_web/api/json",
+    "method": "GET"
+  },
+  "DescribeAvailabilityZones":{
+    "urlPart": "https://ec2.us-east-2.amazonaws.com/",
+    "method": "GET"
+  },
+  "ESPNAssociatedLinksApi": {
+    "urlPart": "content/14274856/categories?lang=en",
+    "method": "GET"
+  },
+  "GetFails":{
+    "urlPart": "http://localhost/status/GetFails",
+    "method": "GET"
+  },
+  "GoodJokes": {
+    "urlPart": "goodJokes",
+    "method": "GET"
+  },
+  "GetWorstOffender": {
+    "urlPart": "status/GetWorstOffender",
+    "method": "GET"
+  },
+  "SpecificBuildApi": {
+    "urlPart": "job/demo_side_by_side/2/api/json",
+    "method": "GET"
+  },
+  "GetTotals": {
+    "urlPart": "http://localhost/status/GetTotals",
+    "method": "GET"
+  }
+}

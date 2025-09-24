@@ -1,0 +1,7 @@
+/.idea/
+/target/
+/db_a/
+/db_b/
+/.run/
+/cucumber-reports/
+/screenshots/

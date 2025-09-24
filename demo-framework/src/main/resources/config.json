@@ -1,0 +1,34 @@
+{
+  "connection_strings": {
+    "test": {
+      "host_name":"",
+      "db_name": ""
+    },
+    "local":{
+      "host_name": "local",
+      "db_name": ""
+    }
+
+  },
+  "settings":
+  {
+    "allowDriverReuse" : "false",
+    "baseNameSpace": "com.lightwell.testing.demo.pageObjects.",
+    "progressHandlerName": "DemoProgressHandler",
+    "WEB_DRIVER_MANAGER": true
+  },
+  "urls": {
+    "apps_local": "http://localhost:8080/",
+    "apps_demo":"https://restcountries.eu/rest/v1/",
+    "apps_devncr":"https://cmhwdstasapi.expstoresdev.EXPDEV.LOCAL/NCRRetailOne/api/v7/",
+    "apps_devposreporting":"https://EDRPOSReporting.expstoresdev.expdev.local",
+    "apps_oms_dev":"ec2.eu-east-2.amazonaws.com",
+    "apps_avatar": "https://api.sampleapis.com/avatar/",
+    "apps_jokes": "https://api.sampleapis.com/jokes/",
+    "url_demo": "https://www.lightwellinc.com/",
+    "apps_demojenkins": "http://demoframework.eastus.cloudapp.azure.com:8080/",
+    "apps_demodashboard": "http://demoframework.eastus.cloudapp.azure.com/dashboard/",
+    "url_espn": "https://www.espn.com/",
+    "apps_espn": "https://site.web.api.espn.com/apis/site/v2/"
+  }
+}
