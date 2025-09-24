@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Status Page";
+}
+
+<div id="statusSpace" class="space">
+    <div id="piechart"></div>
+    <div id="upperSection">
+        <div id="worstOffender" class="statusWidget">
+            <label>Most Failed Scenarios</label>
+            <div id="worstOffenderContent">
+            </div>
+        </div>
+    </div>
+    <div id="lowerSection">
+        <div id="newFails" class="statusWidget">
+            <label>New Failures</label>
+            <span id="totalNewFailsSpan" style="font-weight:bold"></span>
+            <div id="newFailsContent" class="statusContent">
+            </div>
+        </div>
+        <div id="fails" class="statusWidget">
+            <label>Failures</label>
+            <span id="totalFailedBuildsSpan" style="font-weight:bold"></span>
+            <div id="failsContent" class="statusContent">
+            </div>
+        </div>
+        <div id="disabledJobs" class="statusWidget">
+            <label>Disabled Jobs</label>
+            <span id="totalDisabledBuildsSpan" style="font-weight:bold"></span>
+            <div id="disabledJobsContent" class="statusContent"></div>
+        </div>
+        <div id="buildingJobs" class="statusWidget">
+            <label>Building Jobs</label>
+            <span id="totalBuildingBuildsSpan" style="font-weight:bold"></span>
+            <div id="buildingJobsContent" class="statusContent"></div>
+        </div>
+    </div>
+</div>
+@Html.Partial("Legend")
+
+<link href="~/css/statusPage.css" rel="stylesheet" />
+<script src="~/js/statusPage.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

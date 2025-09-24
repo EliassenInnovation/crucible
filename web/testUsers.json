@@ -1,0 +1,14 @@
+{
+	"testEnvironment": {
+		"test2" : {
+			"username" : "testUser2",
+			"password" : "password2"
+		}
+	},
+	"default": {
+		"test" : {
+			"username" : "testUser",
+			"password" : "password"
+		}
+	}
+}

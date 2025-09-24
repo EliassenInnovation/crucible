@@ -1,0 +1,20 @@
+{
+  "parsers":[
+    {
+      "parserName": "stepDefinitionAndDocumentationParser",
+      "expression": "((\\/\\*\\*[\\s\\w\\*@\\'\\-,:\\.]*\\/[\\s]+)?((@And|@Then|@Given|@When).*[\\s]+)+[^{]*)"
+    },
+    {
+      "parserName": "stepDefinitionDocumentationOnlyParser",
+      "expression": "(/\\*\\*[\\s\\w\\W\\*@]*/)"
+    },
+    {
+      "parserName": "stepDefinitionMatcherParser",
+      "expression": "((?:@And|@Then|@Given|@When).*[\\s])"
+    },
+    {
+      "parserName": "stepDefinitionSignatureParser",
+      "expression": "(public void.*)"
+    }
+  ]
+}

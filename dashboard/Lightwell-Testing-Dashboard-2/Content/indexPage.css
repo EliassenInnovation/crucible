@@ -1,0 +1,202 @@
+﻿.collection
+{
+    display: block;
+    margin: 20px;
+}
+
+.testDiv
+{
+    width: 275px;
+    height: 30px;
+    overflow: hidden;
+    float: left;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+    position: relative;
+}
+
+.testDivExpanded
+{
+    overflow: visible !important;
+    background-color: lightgray !important;
+    color: black !important;
+    z-index: 1000;
+    border: none !important;
+}
+
+.innerTestDiv 
+{
+    z-index: -1;
+    left: -10px;
+    top: -10px;
+    width: 400px;
+    height: auto;
+    position: absolute;
+    background-color: lightgray;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+    color: black;
+}
+
+.testLabel
+{
+    display: block;
+}
+
+.resultBox
+{
+    width: 75px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    margin: 0px 10px 0px 0px;
+    vertical-align: top;
+}
+
+.failure 
+{
+/*    animation: blinkingBackground 2s infinite;*/
+    background-color: red;
+}
+
+@keyframes blinkingBackground 
+{
+    0% {
+        background-color: lightsalmon;
+    }
+
+    25% {
+        background-color: lightcoral;
+    }
+
+    50% {
+        background-color: orangered;
+    }
+
+    75% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: darkred;
+    }
+}
+
+.building 
+{
+/*    animation: growingCircle 2s infinite;*/
+        background-color: white;
+        border: 1px solid black;
+}
+
+@keyframes growingCircle 
+{
+    0% {
+        background-color: black;
+        color: white;
+    }
+
+    25% {
+        background-color: grey;
+        color: black;
+    }
+
+    50% {
+        background-color: white;
+        color: black;
+    }
+
+    75% {
+        background-color: grey;
+        color: black;
+    }
+
+    100% {
+        background-color: black;
+        color: white;
+    }
+}
+
+.pass {
+    background-color: green;
+}
+
+.flaky
+{
+    background-color: yellow;
+}
+
+.dangerOrange
+{
+    background-color: orange;
+}
+
+.infoBox
+{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.centerText
+{
+    text-align: center;
+}
+
+.verticalTop
+{
+    vertical-align: top;
+}
+
+.notRun
+{
+    background-color: blue;
+    color: white;
+}
+
+.white-text{
+    color: white;
+}
+
+.buildButton
+{
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.notificationDiv {
+    min-width: 200px;
+    height: 100px;
+    background-color: lightsteelblue;
+    position: fixed;
+    top: -100px;
+    right: 20%;
+    border-radius: 0px 0px 15px 15px;
+    text-align: center;
+    padding-top: 30px;
+    text-wrap: normal; 
+
+    transition: top 2s;
+}
+
+.text-small
+{
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+.text-smaller
+{
+    font-size: 11px;
+    padding-top: 2px;
+}
+
+.text-smallest
+{
+    font-size: 10px;
+    padding-top: 2px;
+}

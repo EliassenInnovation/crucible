@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lightwell-Testing-Dashboard-2</name>
+    </assembly>
+    <members>
+        <member name="M:Lightwell_Testing_Dashboard_2.Controllers.HomeController.GetTestResults(System.String)">
+            <summary>
+            Returns all of the builds on the local Jenkins instance
+            </summary>
+            <param name="sort"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lightwell_Testing_Dashboard_2.Controllers.StatusController.GetWorstOffender">
+            <summary>
+            get the job with the most failing scenarios
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lightwell_Testing_Dashboard_2.Controllers.StatusController.GetFails">
+            <summary>
+            get the job with the most failing scenarios
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lightwell_Testing_Dashboard_2.Controllers.StatusController.GetTotals">
+            <summary>
+            get the total amount of failed, passed, and "other" builds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Lightwell_Testing_Dashboard_2.Helpers.DependencyResolverHelper">
+            <summary>
+            Run from DependencyHelper
+            </summary>
+        </member>
+        <member name="M:Lightwell_Testing_Dashboard_2.Helpers.DependencyResolverHelper.#ctor(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>
+            <inheritdoc />
+            </summary>
+            <param name="WebHost"></param>
+        </member>
+        <member name="M:Lightwell_Testing_Dashboard_2.Helpers.DependencyResolverHelper.GetService``1">
+            <summary>
+            Does the work
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

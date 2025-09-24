@@ -1,0 +1,66 @@
+﻿.statusWidget
+{
+    margin: 10px;
+    position: relative;
+    top: 5p;
+    height: 200px;
+    width: 450px;
+    display: inline-block;
+}
+
+.statusWidget > label
+{
+    background-color: #f2f2f2;
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+#upperSection
+{
+    height: 100px;
+}
+
+#lowerSection
+{
+    height: 200px;
+}
+
+#worstOffender
+{
+    height: 100px;
+}
+
+.statusContent
+{
+    position: absolute;
+    overflow-y: auto;
+    height: 70%;
+    width: 430px;
+    /*-ms-overflow-style: none;*/ /* IE and Edge */
+    /*scrollbar-width: none;*/ /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#failsContent::-webkit-scrollbar
+{
+   /* display: none;*/
+}
+
+#piechart
+{
+    width: 50%;
+    margin-left: 25%;
+    height: 40%;
+}
+
+#controlDiv {
+    top: 50%;
+    position: relative;
+}
+
+#overallProgress, #folderProgress, #upALevel, #filter, #buildAll, #buildFailing {
+    display: none;
+}
+
+
+

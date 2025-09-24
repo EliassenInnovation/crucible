@@ -1,0 +1,518 @@
+﻿button {
+    border-radius: 20px;
+    width: 70px;
+    background-color: white;
+}
+
+    button:active, button:focus {
+        outline: none;
+    }
+
+.buttonImage {
+    height: 1.75em;
+}
+
+.iconButton {
+    background-color: inherit;
+    border: none;
+}
+
+    .iconButton:focus {
+        outline: none !important;
+    }
+
+body, html {
+    font-size: 14px;
+    height: 100%;
+    background-color: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.collection {
+    display: block;
+    margin: 20px;
+}
+
+.testDiv,
+.folderSection {
+    width: 275px;
+    height: 30px;
+    overflow: hidden;
+    float: left;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+    position: relative;
+    background-color: white;
+}
+
+.testDivExpanded {
+    overflow: visible !important;
+    background-color: lightgray !important;
+    color: black !important;
+    z-index: 1000;
+    border: none !important;
+}
+
+.statusDiv {
+    border-radius: 10px 0px 0px 10px;
+    width: 1.25em;
+    position: relative;
+    left: -10px;
+    height: 30px;
+    top: -5px;
+    display: inline-block;
+}
+
+.innerTestDiv {
+    z-index: -1;
+    left: -10px;
+    top: -10px;
+    width: 400px;
+    height: auto;
+    position: absolute;
+    background-color: gainsboro;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+    color: black;
+}
+
+.testLabel {
+    display: block;
+    padding-left: 1em;
+}
+
+.folderLabel {
+    display: block;
+    margin-left: 35px;
+}
+
+.moveMainTestLabel {
+    position: relative;
+    top: -35px;
+}
+
+.resultBox {
+    width: 75px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    margin: 0px 10px 0px 0px;
+    vertical-align: top;
+}
+
+.failure, .failureProgress::-webkit-progress-value {
+    background-color: rgb(242,146,140);
+}
+
+.error {
+    background-color: purple;
+    color: white;
+}
+
+@keyframes blinkingBackground {
+    0% {
+        background-color: lightsalmon;
+    }
+
+    25% {
+        background-color: lightcoral;
+    }
+
+    50% {
+        background-color: orangered;
+    }
+
+    75% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: darkred;
+    }
+}
+
+.building {
+    background-color: aqua;
+}
+
+@keyframes growingCircle {
+    0% {
+        background-color: black;
+        color: white;
+    }
+
+    25% {
+        background-color: grey;
+        color: black;
+    }
+
+    50% {
+        background-color: white;
+        color: black;
+    }
+
+    75% {
+        background-color: grey;
+        color: black;
+    }
+
+    100% {
+        background-color: black;
+        color: white;
+    }
+}
+
+.pass, .passProgress::-webkit-progress-value {
+    background-color: rgb(146,221,150);
+}
+
+.flaky {
+    background-color: khaki;
+}
+
+.dangerOrange {
+    background-color: orange;
+}
+
+.infoBox {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.rightText {
+    text-align: right;
+    padding-right: 25px;
+}
+
+.verticalTop {
+    vertical-align: top;
+}
+
+.notRun {
+    background-color: blue;
+    color: white;
+}
+
+.white-text {
+    color: white;
+}
+
+.buildButton {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.notificationDiv {
+    min-width: 200px;
+    height: 100px;
+    background-color: white;
+    position: fixed;
+    top: -100px;
+    right: 20%;
+    border-radius: 0px 0px 15px 15px;
+    text-align: center;
+    padding-top: 30px;
+    text-wrap: normal;
+    transition: top 2s;
+    border: 10px solid green;
+    border-top: none;
+}
+
+.text-small {
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+.text-smaller {
+    font-size: 11px;
+    padding-top: 2px;
+}
+
+.text-smallest {
+    font-size: 10px;
+    padding-top: 2px;
+}
+
+.colorIndicatorDiv {
+    font-size: .5em;
+    width: 4em;
+    min-width: 4em;
+    border-radius: 15px;
+    display: inline-block
+}
+
+.footerDiv {
+    bottom: 0px;
+    background-color: #f2f2f2;
+}
+
+.tab {
+    display: block;
+    padding-left: 2em;
+    font-weight: bold;
+}
+
+.tabActive {
+    color: darkblue;
+    background-color: #f2f2f2;
+    border-radius: 10px 0px 0px 10px;
+    padding-left: 0px;
+}
+
+.tabInactive {
+    color: white;
+}
+
+#tabs {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 2em;
+    margin-top: 4em;
+}
+
+li {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.resultsHidden {
+    display: none !important;
+}
+
+a.tab:link,
+a.tab:visited,
+a.tab:hover,
+a.tab:active {
+    text-decoration: none;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress[value]::-webkit-progress-value {
+    border-radius: 10px;
+}
+
+.flakyProgress::-webkit-progress-value {
+    background: khaki;
+}
+
+progress {
+    position: relative;
+    height: 1.5em;
+    width: 15em;
+}
+
+    progress:before {
+        content: attr(data-label);
+        font-size: 1em;
+        font-weight: bold;
+        vertical-align: middle;
+        /*Position text over the progress bar */
+        position: absolute;
+        left: 45%;
+        color: black;
+    }
+
+
+
+.tab.tabActive:before,
+/*.tab:after,*/
+li.active:after {
+    padding-left: 2em;
+    content: "";
+    position: relative;
+    height: 10px;
+    bottom: 0;
+}
+
+li.active:after {
+    right: -11em;
+    top: -2px;
+    border-radius: 0 15px 0 0;
+    -moz-border-radius: 0 15px 0 0;
+    -webkit-border-radius: 0 15px 0 0;
+    -webkit-box-shadow: 10px 0 0 0 #f2f2f2;
+    box-shadow: 10px 0 0 0 #f2f2f2;
+}
+
+li.active {
+    margin-bottom: -28px;
+}
+
+.tab.tabActive:before {
+    border-radius: 0 0 15px 0;
+    -moz-border-radius: 0 0 15px 0;
+    -webkit-border-radius: 0 0 15px 0;
+    -webkit-box-shadow: 10px 0 0 0 #f2f2f2;
+    box-shadow: 10px 0 0 0 #f2f2f2;
+    top: -18px;
+    right: -11em;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.sideBar {
+    height: 9.5em;
+    position: relative;
+}
+
+.logoPic {
+    padding: 1em;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.testTypeIcon {
+    height: 30px;
+    width: 30px;
+}
+
+.testTypeIconContainer {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+}
+
+.tabLinkInactive {
+    color: white;
+}
+
+.weatherIcon {
+    position: absolute;
+    left: 5px;
+    top: -1px;
+}
+
+.healthIcon {
+    position: absolute;
+}
+
+.healthIconDigits {
+    font-weight: bold;
+    font-size: large;
+    color: rgb(242,146,140);
+    bottom: .1em;
+}
+
+.testDiv.testDivExpanded .healthIcon {
+    display: none !important;
+}
+
+.space {
+    border: none;
+    overflow: auto;
+    height: calc(100vh - 225px);
+    clear: both;
+}
+
+.legendDiv {
+    font-size: 1em;
+    display: inline-block;
+    vertical-align: central;
+    margin: 0px 10px 0px 10px;
+}
+
+.legendContainer, .footerLinks {
+    display: flex;
+    justify-content: center;
+}
+
+.currentFolder {
+    text-align: left;
+    font-weight: bold;
+    font-size: large;
+    padding: 1em 0px;
+    display: inline-block;
+}
+
+.breadCrumb {
+    text-align: left;
+}
+
+    .breadCrumb:hover {
+        text-decoration: underline !important;
+    }
+
+.filterBox {
+    background-color: white;
+    padding: 1em;
+    border-radius: 20px;
+    width: 13em;
+}
+
+.hide {
+    display: none !important;
+}
+
+.filterContainer {
+    position: fixed;
+    z-index: 99999;
+    overflow: hidden;
+    transition: height 2s ease;
+    height: 100%;
+}
+
+.filterContainerHide {
+    height: 0%;
+    transition: height 1s ease;
+}
+
+.filter {
+    border-radius: 20px;
+    width: 100%;
+    margin: .2em;
+    padding-left: .5em;
+    padding-top: .2em;
+}
+
+.filterSelected i.fa-square {
+    display: none;
+}
+
+.filterSelected i.fa-square-check {
+    display: inline-block
+}
+
+i.fa-square-check {
+    display: none;
+}
+
+.filter i {
+    position: relative;
+    top: 2px;
+}
+
+.fa-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+}
+
+    /* Optional: Add hover effect */
+    .fa-button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Add active (click) effect */
+    .fa-button:active {
+        transform: scale(0.9);
+        transition: transform 0.1s;
+    }

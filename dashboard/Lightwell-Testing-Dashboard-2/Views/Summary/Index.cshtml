@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Landing Page";
+}
+
+<div id="landingSpace" style="display: none; justify-content: center;">
+    <div id="resultsTableDiv" class="landingSpace" style="display:inline-block;">
+        <table id="resultsTable" class="sortable editableTable">
+            <thead class="sticky">
+                <tr>
+                    <th class="">Feature</th>
+                    <th class="pass sorttable_numeric">Passed</th>
+                    <th class="failure sorttable_numeric">Failed</th>
+                    <th class="grey sorttable_numeric">Total</th>
+                    <th class="">Test Duration</th>
+                    <th class="">Build Duration</th>
+                    <th class="">Status</th>
+                    <th class="">Notes</th>
+                    <th class=""></th>
+                </tr>
+            </thead>
+            <tbody id="resultsTableBody"></tbody>
+            <tfoot class="grey bottomSticky">
+                <tr>
+                    <th class="centerText"></th>
+                    <th id="totalPassedCell" class="centerText" title="Total Passing Scenarios"></th>
+                    <th id="totalFailedCell" class="centerText" title="Total Failing Scenarios"></th>
+                    <th id="totalTestsCell" class="centerText" title="Total Scenarios"></th>
+                    <th id="totalTestDurationCell" class="centerText" title="Total Aggregate Test Time&#013;Hours:Minutes"></th>
+                    <th id="totalDurationCell" class="centerText" title="Total Aggregate Build Time&#013;Hours:Minutes"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                </tr>
+                <tr>
+                    <th class="centerText"></th>
+                    <th id="totalPassedPercentageCell" class="centerText" title="Overall Passing %"></th>
+                    <th id="totalFailedPercentageCell" class="centerText" title="Overall Failing %"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                    <th class="centerText"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="StatsDiv" class="landingSpace" style="display: inline-block; margin: 25px;">
+        <div id="piechart" style="position: sticky; top: 0px; display:flex; justify-content: center; width: 100%; background-color: #f2f2f2;height: 20em;width: 40em;"></div>
+        <div id="infoSpace">
+            <div id="jiraFrame" style="width: 100%; text-align: center; padding-top: 5em;">
+                <span style="font-weight: bold; font-size: x-large;">Jira Integration is on the way!</span>
+            </div>
+            <div id="milestone" style="display: none">
+                <div class="stat-container">
+                    <div id="longestBuildDurationDiv" class="stats" >
+                        <h2>Longest Build Duration</h2>
+                    </div>
+                    <div id="shortestBuildDurationDiv" class="stats" >
+                        <h2>Shortest Build Duration</h2>
+                    </div>
+                </div>
+                <hr style="width: 90%" />
+                <div class="stat-container">
+                    <div id="longestTestDurationDiv" class="stats" >
+                        <h2>Longest Test Duration</h2>
+                    </div>
+                    <div id="shortestTestDurationDiv" class="stats" >
+                        <h2>Shortest Test Duration</h2>
+                    </div>
+                </div>
+                <hr style="width: 90%" />
+                <div class="stat-container">
+                    <div id="mostFailsDiv" class="stats" >
+                        <h2>Most Fails</h2>
+                    </div>
+                    <div id="mostScenariosDiv" class="stats" >
+                        <h2>Most Scenarios</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modalContent">
+        <label id="editModalLabel"></label>
+        <div id="closeModal" class="closeModal"><i class="fa-solid fa-circle-xmark"></i></div>
+        <textarea id="editBox"></textarea>
+        <button id="saveEdit">Save</button>
+        <button id="cancelEdit" class="closeModal">Cancel</button>
+    </div>
+</div>
+
+
+<script src="~/js/landingPage.js"></script>
+<script src="~/js/createHtml.js"></script>
+<link href="~/css/landingPage.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="~/js/sorttable.js"></script>
+<script src="~/js/editModal.js"></script>
+<link href="~/css/editModal.css" rel="stylesheet" />

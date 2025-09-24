@@ -1,0 +1,59 @@
+﻿.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+.modalContent {
+    background-color: var(--brand-color);
+    position: relative;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#editBox {
+    width: 100%;
+    height: 100px;
+    margin-top: 1em;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#saveEdit, #cancelEdit {
+    padding: 10px 0px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#closeModal {
+    position: absolute;
+    right: .2em;
+    top: 0em;
+    font-size: 24px;
+    cursor: pointer;
+    color: white !important;
+}
+
+#editModalLabel
+{
+    color: white;
+    left: 1em;
+    top: .5em;
+    position: absolute;
+    font-weight: bold;
+}

@@ -1,0 +1,21 @@
+{
+  "stepDefinitionLibrary": {
+    "documentationDirectory": "documentation",
+    "stepDefinitionListFileName": "stepDefinitionList.md",
+    "stepDefinitionDocumentationFileName": "stepDefinitionDocumentation.md",
+    "stepDefinitionsMissingDocumentationFileName": "stepDefinitionsMissingDocumentation.md",
+    "stepDefinitionAndDocumentationParser": "stepDefinitionAndDocumentationParser",
+    "stepDefinitionDocumentationOnlyParser": "stepDefinitionDocumentationOnlyParser",
+    "stepDefinitionMatcherParser": "stepDefinitionMatcherParser",
+    "stepDefinitionSignatureParser": "stepDefinitionSignatureParser",
+    "documentationTagParser": "stepDefinitionsInDocumentation",
+    "useExternalJar": true,
+    "useFeatureNames": false,
+    "jarPath": "B2BTAFramework-1.0-SNAPSHOT.jar",
+    "excludedFileTypes": [
+      "txt"
+    ],
+    "basePath": "stepdefinitions",
+    "parserJson": "stepDefinitionParsers.json"
+  }
+}

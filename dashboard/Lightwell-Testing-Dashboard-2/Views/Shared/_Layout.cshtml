@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Dashboard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/settings.js"></script>
+    <script src="~/js/icons.js"></script>
+    <script src="~/js/actions.js"></script>
+    <script src="~/js/common.js"></script>
+    <link href="~/css/indexPage.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/1ab8a18613.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style type="text/css">
+        .logoPic
+        {
+        }
+    </style>
+</head>
+<body>
+    <div id="spinner" style="top:50%;position: absolute;text-align: center; width: 100%; z-index:9999999; display: none;">
+        <i class="fa-solid fa-gear fa-spin fa-2xl" style="font-size: 20em"></i>
+    </div>
+    <div id="spinnerModal" style="z-index:99999999; position: absolute; width: 100%; height: 100vh; display: none"></div>
+    <div id="sideBar" class="sideBar">
+        <div id="logoDiv" style="height:100%;float:left;margin-right: 2em;">
+            <img id="logoPic" src="" class="logoPic" style="height:100%" />
+        </div>
+        <div id="currentFolderDiv" class="currentFolder" hidden></div>
+        <div id="controlDiv" style="padding: .25em;" hidden>
+            <button id="refreshButton" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+            <button id="buildAll" title="Build all jobs in this folder"><i class="fas fa-hammer"></i></button>
+            <button id="buildFailing" title="Build all failing builds in this folder"><i class="fas fa-exclamation-circle"></i></button>
+
+            <div id="filterControlContainer" style="display: inline-block">
+                <button id="filter" title="Filter Results"><i class="fa-solid fa-filter" style="color: #000000;"></i></button>
+                <div id="filterContainer" class="filterContainer filterContainerHide">
+                    <div id="filterBox" class="filterBox">
+                        <div id="successDiv" class="legendDiv filter filterSelected" value="success">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="successLabel">success - </label>
+                            <div id="successColorDiv" class="colorIndicatorDiv pass">&nbsp;</div>
+                        </div>
+                        <div id="flakyDiv" class="legendDiv filter filterSelected" value="flaky">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="flakyLabel">flaky - </label>
+                            <div id="flakyColorDiv" class="colorIndicatorDiv flaky">&nbsp;</div>
+                        </div>
+                        <div id="failureDiv" class="legendDiv filter filterSelected" value="failure">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="failureLabel">failure - </label>
+                            <div id="failureColorDiv" class="colorIndicatorDiv failure">&nbsp;</div>
+                        </div>
+                        <div id="errorDiv" class="legendDiv filter filterSelected" value="notFound">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="errorLabel">error - </label>
+                            <div id="errorColorDiv" class="colorIndicatorDiv dangerOrange">&nbsp;</div>
+                        </div>
+                        <div id="notRunDiv" class="legendDiv filter filterSelected" value="notRun">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="notRunLabel">not run - </label>
+                            <div id="notRunColorDiv" class="colorIndicatorDiv notRun">&nbsp;</div>
+                        </div>
+                        <div id="noTestsDiv" class="legendDiv filter filterSelected" value="noScenarios">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="noTestsLabel">no scenarios - </label>
+                            <div id="noTestsColorDiv" class="colorIndicatorDiv error">&nbsp;</div>
+                        </div>
+                        <div id="buildingDiv" class="legendDiv filter filterSelected" value="building">
+                            <i class="fa-regular fa-square filterCheck" style="color: #000000;"></i>
+                            <i class="fa-regular fa-square-check filterCheck" style="color: #000000;"></i>
+                            <label id="buildingLabel">building - </label>
+                            <div id="buildingColorDiv" class="colorIndicatorDiv building">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="upALevel" class="infoBox" title="Up A Level"><i class="fas fa-arrow-up"></i></button>
+
+            <div id="sortOrderContainer" style="float:right;display:inline-block;margin:0px 15px; display: none">
+                <span>Sort:</span>
+                <select id="sortOrder">
+                    <option value="normal">Normal</option>
+                    <option value="time_desc">By time descending</option>
+                    <option value="time_asc">By time ascending</option>
+                </select>
+            </div>
+            <div id="overallProgress" style="float: right">
+                <div id="successRatio" style="padding-right: 1em; display: inline-block; top: -4px; position: relative;">
+                    <span>Overall: </span>
+                    <div id="totalDiv" style="display: inline-block;font-weight:bold"></div>
+                </div>
+                <progress id="progress" style="border-radius: 10px; margin-right: 2em;"></progress>
+            </div>
+            <div id="folderProgress" style="float: right">
+                <div id="tabSuccessRatio" style="padding-right: 1em; display: inline-block; top: -4px; position: relative;">
+                    <span>This Folder: </span>
+                    <div id="tabTotalDiv" style="display: inline-block;font-weight:bold"></div>
+                </div>
+                <progress id="tabProgress" style="border-radius: 10px; margin-right: 2em;"></progress>
+            </div>
+            <div style="padding:.5em;"><label id="refreshLabel"></label></div>
+        </div>
+    </div>
+    <div class="body-content" style="overflow:hidden; padding: .5em;">
+        @RenderBody()
+        <div style="position: fixed; bottom: 20px; width: 100%">
+            <div id="footerLinks" class="footerLinks">
+                <a id="dashboardLink" href="" target="_blank">Dashboard</a>&nbsp;|&nbsp;<a id="jenkinsLink" href="" target="_blank">Jenkins</a>&nbsp;|&nbsp;<a id="summaryLink" href="" target="_blank">Summary</a>&nbsp;|&nbsp;<a id="statusLink" href="" target="_blank">Status</a>
+            </div>
+            <div id="copyright" style="width: 100%;">
+                <div style="font-size:8px;display:flex;justify-content:center ;color:black;padding-right:1em;">2025 - Eliassen Testing Dashboard</div>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

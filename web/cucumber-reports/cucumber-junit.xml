@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="4" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="4" time="0.225">
+    <testcase classname="Step Definition Test" name="Test all step definitions" time="0.042">
+        <failure message="Cannot invoke &quot;com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()&quot; because &quot;_pageObject&quot; is null" type="java.lang.NullPointerException"><![CDATA[And I click on the "mock"...................................................skipped
+And I click on "mock".......................................................skipped
+And I take the "mock" and enter it into the "mock"..........................skipped
+And I take "mock" and enter it into "mock"..................................skipped
+And I remember the text from the "mock" as "mock"...........................skipped
+And I remember the text from "mock" as "mock"...............................skipped
+* I enter a random email address into the "mock"............................skipped
+* I enter a random phone number into the "mock".............................skipped
+* I enter a random pokemon into the "mock"..................................skipped
+* I enter a random SSN into the "mock"......................................skipped
+* I enter a random title into the "mock"....................................skipped
+* I enter a random 10 digit phone number into the "mock"....................skipped
+
+StackTrace:
+java.lang.NullPointerException: Cannot invoke "com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()" because "_pageObject" is null
+	at com.eliassen.crucible.core.sharedobjects.MasterMind.setPageObject(CurrentObjectBase.java:52)
+	at com.eliassen.crucible.web.stepdefinitions.BeforeHooks.launchBrowserAndNavigateToPage(MacroSteps.java:101)
+]]></failure>
+    </testcase>
+    <testcase classname="Tests" name="Test Download" time="0.006">
+        <failure message="Cannot invoke &quot;com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()&quot; because &quot;_pageObject&quot; is null" type="java.lang.NullPointerException"><![CDATA[And I navigate to the page..................................................skipped
+
+StackTrace:
+java.lang.NullPointerException: Cannot invoke "com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()" because "_pageObject" is null
+	at com.eliassen.crucible.core.sharedobjects.MasterMind.setPageObject(CurrentObjectBase.java:52)
+	at com.eliassen.crucible.web.stepdefinitions.BeforeHooks.launchBrowserAndNavigateToPage(MacroSteps.java:101)
+]]></failure>
+    </testcase>
+    <testcase classname="Tests" name="test persisted part 1" time="0.002">
+        <failure message="Cannot invoke &quot;com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()&quot; because &quot;_pageObject&quot; is null" type="java.lang.NullPointerException"><![CDATA[And I persist "testValue" as "testkey"......................................skipped
+
+StackTrace:
+java.lang.NullPointerException: Cannot invoke "com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()" because "_pageObject" is null
+	at com.eliassen.crucible.core.sharedobjects.MasterMind.setPageObject(CurrentObjectBase.java:52)
+	at com.eliassen.crucible.web.stepdefinitions.BeforeHooks.launchBrowserAndNavigateToPage(MacroSteps.java:101)
+]]></failure>
+    </testcase>
+    <testcase classname="Tests" name="test persisted part 1 2" time="0.001">
+        <failure message="Cannot invoke &quot;com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()&quot; because &quot;_pageObject&quot; is null" type="java.lang.NullPointerException"><![CDATA[And I retrieve "testkey" from pesristed storage.............................skipped
+
+StackTrace:
+java.lang.NullPointerException: Cannot invoke "com.eliassen.crucible.core.pageobjects.PageObjectBase.getProgressHandler()" because "_pageObject" is null
+	at com.eliassen.crucible.core.sharedobjects.MasterMind.setPageObject(CurrentObjectBase.java:52)
+	at com.eliassen.crucible.web.stepdefinitions.BeforeHooks.launchBrowserAndNavigateToPage(MacroSteps.java:101)
+]]></failure>
+    </testcase>
+</testsuite>

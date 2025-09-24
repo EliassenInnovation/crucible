@@ -1,0 +1,114 @@
+﻿:root {
+    --brand-color: grey;
+}
+
+table
+{
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th, td {
+    padding: 5px;
+}
+
+th {
+    text-align: center;
+    background-color: var(--brand-color);
+    color: white;
+}
+
+th.pass, th.failure, th.grey{
+    color: black;
+}
+
+.grey, tr:nth-child(even) {
+    background-color: rgb(211,211,211);
+}
+
+#resultsTableDiv
+{
+    margin: 25px;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+a
+{
+    text-decoration: underline;
+}
+
+body
+{
+    overflow: hidden;
+}
+
+.landingSpace 
+{
+    border: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100vh - 245px);
+    clear: both;
+}
+
+.sticky 
+{
+    position: sticky;
+    top: 0px;
+}
+
+.bottomSticky
+{
+    position: sticky;
+    bottom: 0px;
+}
+
+.stats a {
+    margin-right: 1rem;
+}
+
+.stats h2 {
+    margin-bottom: .5rem;
+    margin-top: 1rem;
+}
+
+.stats p {
+    margin-top: .5rem;
+}
+
+.stats hr {
+    margin: 1.25rem 0 1rem;
+}
+
+.stat-container {
+/*    display: flex;
+    justify-content: start;*/
+}
+
+.stats {
+    padding: 1rem;
+    min-width: 22rem;
+}
+
+#controlDiv{
+    top: 50%;
+    position: relative;
+}
+
+td.limitedWidth{
+    max-width: 15em;
+}
+
+#infoSpace
+{
+    position: absolute;
+    overflow-y: scroll;
+    height: calc(100vh - 37em);
+    min-width: 40rem;
+}
+
+

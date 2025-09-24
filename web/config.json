@@ -1,0 +1,25 @@
+{
+  "selenium_hub": {
+    "address": "http://192.168.56.101:4444/wd/hub"
+  },
+  "settings": {
+    "minimumTimeout": "500",
+    "allowDriverReuse": "true",
+    "WEB_DRIVER_MANAGER": true,
+    "baseNameSpace": "com.eliassen.crucible.web.pageObjects.",
+    "progressHandlerName": "MockProgressHandler",
+    "webDriverOptions": {
+      "chromeDriver": [
+        "--allow-running-insecure-content",
+        "--safebrowsing-enable-enhanced-protection"
+      ]
+    },
+    "IMPLICIT_WAIT": 7.5
+  },
+  "testSettings": {
+    "com.eliassen.crucible.web.drivers.mocks.MockDriver.quit": {
+      "function": "error",
+      "errorType": "Java.system.io"
+    }
+  }
+}

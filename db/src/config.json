@@ -1,0 +1,13 @@
+{
+  "universal": {
+    "driver": "oracle.jdbc.driver.OracleDriver",
+    "protocol": "jdbc:oracle:thin:@",
+    "port": "1521"
+  },
+  "connection_strings": {
+    "dev": {
+      "host_name" : "mclanedb.eastus.cloudapp.azure.com",
+      "db_name": "pdb1"
+    }
+  }
+}
