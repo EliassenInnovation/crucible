@@ -1,8 +1,14 @@
 {
-  "local": {
+  "default": {
     "user": {
       "username": "guest",
       "encryptedPassword": "a4OaI34rlyf/Gzi47z0o5Q=="
+    }
+  },
+  "local": {
+    "user": {
+      "username": "typical_user",
+      "password": "password_one"
     }
   }
 }
