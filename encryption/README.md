@@ -56,11 +56,11 @@ It is suggested you setup a run configuration like this to run it.
 It is designed to be simple and easy to use.
 
 #### Encrypting using the app
-If you are encrypting a string, place the unencrypted string in the **input** field and hit the **encrypt** button. The encrypted string will appear in the **output** field. Hit the **copy output** button to place it in your clipboard.
+If you are encrypting a string, place the unencrypted string in the **input** field and hit the **encrypt** button. The encrypted string will appear in the **output** field. Hit the **copy output** button to place it in your clipboard.  
 ![encryption_app_ui_encrypting.png](images/encryption_app_ui_encrypting.png)
 
 #### Decrypting using the app
-If you are decrypting a string, place the encrypted string in the **input** field and hit the **decrypt** button. The decrypted string will appear in the **output** field. Hit the **copy output** button to place it in your clipboard.
+If you are decrypting a string, place the encrypted string in the **input** field and hit the **decrypt** button. The decrypted string will appear in the **output** field. Hit the **copy output** button to place it in your clipboard.  
 ![encryption_app_ui_decrypting.png](images/encryption_app_ui_decrypting.png)
 
 ### Code Quality and Maintenance
