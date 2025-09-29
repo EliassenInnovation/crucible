@@ -68,6 +68,7 @@ The recommended way to execute the framework is by creating a JUnit run configur
   * **cucumber.filter.tags** is where you put the Cucumber expression used to choose which tests to execute. If you leave this either blank or do not include it, the framework will attempt to run **ALL** your scenarios.
 * **Environment Variables**
   * **IMPLICIT_WAIT** is the max amount of time a Selenium action is allowed to wait before throwing a timeout exception. It is in whole seconds. The default is 5.
-  * **PAGE_LOAD_TIMEOUT** is a special timeout specifically for waiting for the page to load. This does not guarantee the page is FULLY loaded, just that it has resolved. In whole seconds and the default 
+  * **PAGE_LOAD_TIMEOUT** is a special timeout specifically for waiting for the page to load. This does not guarantee the page is FULLY loaded, just that it has resolved. In whole seconds and the default is 5.
+  * **PROGRESS_HANDLER_MAX_WAIT** is a special wait for how long a progress indicator (e.g. spinner, progress bar, loading indicator, etc.) can be on the screen before the framework will time out. This is special functionality defined in the Progress Handler class, which is required to be defined per client framework.
 
 
