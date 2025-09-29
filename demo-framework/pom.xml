@@ -95,7 +95,7 @@
                             </descriptors>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.lightwell.testing.demo.stepDefinitions.RunCucumberTest</mainClass>
+                                    <mainClass>stepDefinitions.com.eliassen.crucible.demo.RunCucumberTest</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
