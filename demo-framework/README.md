@@ -11,7 +11,7 @@ Lowercase is used in most feature files.
 Environments are an abstract concept and are not explicitly defined. This means there are no compulsory parts that are required to be setup for each environment.
 An environment can consist of
 - Users
-- Urls (for both front-end sites and Api endpoints)
+- URLs (for both front-end sites and Api endpoints)
 - One or more Connection Strings
 
 ### Example
