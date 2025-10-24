@@ -13,7 +13,7 @@
   "settings":
   {
     "allowDriverReuse" : "false",
-    "baseNameSpace": "com.lightwell.testing.demo.pageObjects.",
+    "baseNameSpace": "com.eliassen.crucible.demo.pageObjects.",
     "progressHandlerName": "DemoProgressHandler",
     "WEB_DRIVER_MANAGER": true
   },

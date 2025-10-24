@@ -1,28 +1,39 @@
-<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
-    <id>0.1</id>
-    <formats>
-        <format>jar</format>
-    </formats>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <dependencySets>
-        <dependencySet>
-            <outputDirectory>/</outputDirectory>
-            <useProjectArtifact>true</useProjectArtifact>
-            <unpack>true</unpack>
-            <scope>runtime</scope>
-        </dependencySet>
-    </dependencySets>
-    <fileSets>
-        <fileSet>
-            <directory>${project.build.directory}/test-classes</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>**/*.class</include>
-                <include>**/*.feature</include>
-            </includes>
-            <useDefaultExcludes>true</useDefaultExcludes>
-        </fileSet>
-    </fileSets>
-</assembly>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The descriptor.xml file is used to define the structure and metadata of the project.
+    It contains information about the project's name, version, and dependencies.
+-->
+<descriptor xmlns="http://www.example.com/descriptor"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.example.com/descriptor descriptor.xsd">
+    <!--
+        The 'project' element is the root element of the descriptor.
+        It contains the project's metadata and structure.
+    -->
+    <project name="demo-framework" version="1.0">
+        <!--
+            The 'dependencies' element lists the project's dependencies.
+            These are the other projects or libraries that this project relies on.
+        -->
+        <dependencies>
+            <!--
+                Each 'dependency' element specifies a single dependency.
+                It includes the name and version of the dependency.
+            -->
+            <dependency name="dependency1" version="1.0"/>
+            <dependency name="dependency2" version="2.0"/>
+        </dependencies>
+        <!--
+            The 'components' element lists the project's components.
+            These are the individual parts that make up the project.
+        -->
+        <components>
+            <!--
+                Each 'component' element specifies a single component.
+                It includes the name and type of the component.
+            -->
+            <component name="component1" type="type1"/>
+            <component name="component2" type="type2"/>
+        </components>
+    </project>
+</descriptor>
