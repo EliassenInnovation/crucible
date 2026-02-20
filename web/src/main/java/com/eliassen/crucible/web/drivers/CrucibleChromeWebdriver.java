@@ -40,32 +40,7 @@ public class CrucibleChromeWebdriver extends CrucibleWebdriver
             ((ChromeOptions) options).addArguments("--disable-dev-shm-usage");
         }
 
-        try
-        {
-            driver = new ChromeDriver((ChromeOptions) options);
-        }
-        catch (IllegalStateException | NoSuchDriverException e)
-        {
-            try
-            {
-                String chromeDriverName = System.getProperty(DriverFactory.CHROME_DRIVER_PROPERTY);
-                DriverFactory.extractDriver(chromeDriverName);
-
-                driver = new ChromeDriver((ChromeOptions) options);
-            }
-            catch (IllegalStateException | NoSuchDriverException e2) {
-                Logger.logError("Failed to instantiate Chromedriver!");
-                if(retryCount <= 3){
-                    TestHelper.waitSilently(1);
-                    Logger.log("I'll try to get the driver again, this is retry attempt " + ++retryCount);
-                    String chromeDriverName = System.getProperty(DriverFactory.CHROME_DRIVER_PROPERTY);
-                    DriverFactory.extractDriver(chromeDriverName);
-                    driver = new ChromeDriver((ChromeOptions) options);
-                } else {
-                    throw e2;
-                }
-            }
-        }
+        driver = new ChromeDriver((ChromeOptions) options);
 
         setInstance(driver);
     }

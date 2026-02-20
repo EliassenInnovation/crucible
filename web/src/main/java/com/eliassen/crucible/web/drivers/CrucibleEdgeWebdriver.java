@@ -20,21 +20,7 @@ public class CrucibleEdgeWebdriver extends CrucibleWebdriver {
             ((EdgeOptions) options).addArguments("--window-size=1600,900");
         }
 
-        try {
-            driver = new EdgeDriver((EdgeOptions) options);
-        } catch (IllegalStateException ise) {
-            try {
-                String edgeDriverName = System.getProperty(DriverFactory.EDGE_DRIVER_PROPERTY);
-
-                FileHelper fileHelper = new FileHelper();
-                fileHelper.ExtractFile(edgeDriverName, "a+rwx");
-
-                driver = new EdgeDriver((EdgeOptions) options);
-            } catch (IllegalStateException ise2) {
-                Logger.logError("Failed to instantiate Edge driver!");
-                throw ise;
-            }
-        }
+        driver = new EdgeDriver((EdgeOptions) options);
 
         driver.manage().window().setSize(new Dimension(1600, 900));
         driver.manage().window().maximize();

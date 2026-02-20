@@ -7,7 +7,6 @@ import org.apache.commons.lang3.SystemUtils;
 import com.eliassen.crucible.common.helpers.FileHelper;
 import com.eliassen.crucible.common.helpers.SystemHelper;
 import com.eliassen.crucible.web.drivers.mocks.MockWebdriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory
 {
@@ -36,29 +35,6 @@ public class DriverFactory
 	private void setDriverPaths()
 	{
 		System.setProperty(WEBDRIVER_HTTP_FACTORY_PROPERTY,"jdk-http-client");
-
-		//TODO
-		//Add paths for other drivers
-		if(SystemUtils.IS_OS_WINDOWS)
-		{
-			System.setProperty(CHROME_DRIVER_PROPERTY,"./" + CHROMEDRIVER_NAME + WINDOWS_EXTENSION);
-			System.setProperty(FIREFOX_DRIVER_PROPERTY,"./" + FIREFOXDRIVER_NAME + WINDOWS_EXTENSION);
-			System.setProperty(EDGE_DRIVER_PROPERTY,"./" + EDGEDRIVER_NAME + WINDOWS_EXTENSION);
-			operatingSystem = "Windows";
-		}
-		else if(SystemUtils.IS_OS_LINUX)
-		{
-			System.setProperty(CHROME_DRIVER_PROPERTY,"./" + CHROMEDRIVER_NAME);
-			System.setProperty(FIREFOX_DRIVER_PROPERTY,"./" + FIREFOXDRIVER_NAME);
-			System.setProperty(EDGE_DRIVER_PROPERTY,"./" + EDGEDRIVER_NAME);
-			operatingSystem = "Linux";
-		}
-		else if(SystemUtils.IS_OS_MAC)
-		{
-			System.setProperty(CHROME_DRIVER_PROPERTY,"./" + CHROMEDRIVER_NAME);
-			System.setProperty(SAFARI_DRIVER_PROPERTY,"./" + SAFARIDRIVER_NAME);
-			operatingSystem = "Mac";
-		}
 	}
 		
 	public CrucibleWebdriver createDriver()
@@ -91,18 +67,12 @@ public class DriverFactory
 		{
 			case firefox:
 			case firefox_headless:
-				if(useWebDriverManager) {
-					WebDriverManager.firefoxdriver().setup();
-				}
 				driver = new CrucibleFirefoxWebdriver(driverName,useProxy);
 				break;
 			case remote:
 				//TODO transfer from Driver
 			case edge:
 			case edge_headless:
-				if(useWebDriverManager) {
-					WebDriverManager.edgedriver().setup();
-				}
 				driver = new CrucibleEdgeWebdriver(driverName,useProxy);
 				break;
 			case mock:
@@ -113,37 +83,11 @@ public class DriverFactory
 			case chrome_incognito:
 			case chrome_incognito_headless:
 			default:
-				if(useWebDriverManager) {
-					WebDriverManager.chromedriver().setup();
-				}
 				driver = new CrucibleChromeWebdriver(driverName,useProxy);
 				break;
 		}
 		driver.setImplicitTimeout();
 		driver.setPageLoadTTimeout();
 		return driver;
-	}
-
-	public static void extractDriver(String driverName)
-	{
-		FileHelper fileHelper = new FileHelper();
-		try {
-			if (!SystemUtils.IS_OS_MAC) {
-				fileHelper.ExtractFile(driverName, "a+rwx");
-			} else {
-				fileHelper.ExtractFile(driverName, "755", "." + File.separator);
-			}
-		}
-		catch (NullPointerException npe)
-		{
-			if(driverName.contains("./"))
-			{
-				extractDriver(driverName.replace("./",""));
-			}
-			else
-			{
-				throw npe;
-			}
-		}
 	}
 }

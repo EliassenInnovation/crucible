@@ -22,25 +22,7 @@ public class CrucibleFirefoxWebdriver extends CrucibleWebdriver
         }
         options.addArguments("--window-size=1600,900");
 
-        try
-        {
-            setupDriver(options);
-        }
-        catch(IllegalStateException ise)
-        {
-            try
-            {
-                String firefoxDriverName = System.getProperty(DriverFactory.FIREFOX_DRIVER_PROPERTY);
-                DriverFactory.extractDriver(firefoxDriverName);
-
-                setupDriver(options);
-            }
-            catch(IllegalStateException ise2)
-            {
-                Logger.logError("Failed to instantiate Firefox driver!");
-                throw ise;
-            }
-        }
+        setupDriver(options);
 
         setInstance(driver);
     }
