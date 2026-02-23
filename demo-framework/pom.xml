@@ -19,11 +19,18 @@
     <version>1.0</version>
     <packaging>jar</packaging>
     <description>Demo TA Framework</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <version.crucible>2.0.1-SNAPSHOT</version.crucible>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.eliassen.crucible</groupId>
             <artifactId>web</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>${version.crucible}</version>
         </dependency>
         <dependency>
             <groupId>com.rabbitmq</groupId>
@@ -44,7 +51,7 @@
         <dependency>
             <groupId>com.eliassen.crucible</groupId>
             <artifactId>db</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>${version.crucible}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -104,9 +111,4 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-    
 </project>
