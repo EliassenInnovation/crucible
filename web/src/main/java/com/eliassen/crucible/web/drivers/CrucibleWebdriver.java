@@ -182,6 +182,7 @@ public abstract class CrucibleWebdriver implements WebDriver
 				throw t;
 			} else {
 				Logger.log("Failed to navigate to " + url + ", attempted " + navigationAttemptsCount + " times. Trying again in 20 seconds");
+				CurrentPage.storePersisted(navigationAttempts,String.valueOf(++navigationAttemptsCount));
                 try {
                     Thread.sleep(20000);
 					goTo(url);
@@ -189,7 +190,7 @@ public abstract class CrucibleWebdriver implements WebDriver
                     throw new RuntimeException(e);
                 }
 
-				CurrentPage.storePersisted(navigationAttempts,String.valueOf(++navigationAttemptsCount));
+
             }
 
 		}
