@@ -181,7 +181,7 @@ public abstract class CrucibleWebdriver implements WebDriver
 			if(navigationAttemptsCount > 2){
 				throw t;
 			} else {
-				Logger.log("Failed to navigate, attempted " + navigationAttemptsCount + " times. Trying again in 20 seconds");
+				Logger.log("Failed to navigate to " + url + ", attempted " + navigationAttemptsCount + " times. Trying again in 20 seconds");
                 try {
                     Thread.sleep(20000);
 					goTo(url);
