@@ -173,7 +173,7 @@ public abstract class CrucibleWebdriver implements WebDriver
 			instance.navigate().to(url);
 		} catch (TimeoutException t) {
 			String navigationAttempts = "navigation attempts";
-			int navigationAttemptsCount = 0;
+			int navigationAttemptsCount = 1;
 			if(CurrentPage.isPersisted(navigationAttempts)){
 				navigationAttemptsCount = Integer.parseInt(CurrentPage.retrievePersisted(navigationAttempts));
 			}
