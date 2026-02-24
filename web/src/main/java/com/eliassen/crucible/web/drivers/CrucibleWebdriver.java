@@ -169,10 +169,10 @@ public abstract class CrucibleWebdriver implements WebDriver
 	
 	public void goTo(String url)
 	{
+		String navigationAttempts = "navigation attempts";
 		try {
 			instance.navigate().to(url);
 		} catch (TimeoutException t) {
-			String navigationAttempts = "navigation attempts";
 			int navigationAttemptsCount = 1;
 			if(CurrentPage.isPersisted(navigationAttempts)){
 				navigationAttemptsCount = Integer.parseInt(CurrentPage.retrievePersisted(navigationAttempts));
@@ -189,10 +189,9 @@ public abstract class CrucibleWebdriver implements WebDriver
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-
-
             }
-
+		} finally {
+			CurrentPage.storePersisted(navigationAttempts,String.valueOf(0));
 		}
 	}
 
