@@ -72,7 +72,7 @@ public class DemoApiHelper
         ApiInfo apiInfo = getApiInfo(apiName);
         Headers headers = getHeaders();
 
-        return ApiHelper.CallApi(apiInfo,headers,urlParameters);
+        return ApiHelper.callApi(apiInfo,headers,urlParameters);
     }
 
     public static ApiResponse callApi(ApiName apiName, JSONObject payload)
@@ -87,7 +87,7 @@ public class DemoApiHelper
 
         apiInfo.apiUrl = String.format(apiInfo.apiUrl,urlParameters);
 
-        return ApiHelper.CallApi(apiInfo, headers, payload);
+        return ApiHelper.callApi(apiInfo, headers, payload);
     }
 
     public static ApiResponse callApi(ApiName apiName, DataTable dataTable)
@@ -103,7 +103,7 @@ public class DemoApiHelper
                 .setHeaders(headers)
                 .build();
 
-        return ApiHelper.CallApi(request);
+        return ApiHelper.callApi(request);
     }
 
     public static ApiResponse callApi(ApiName apiName, String payload)
@@ -118,7 +118,7 @@ public class DemoApiHelper
                 .setStringPayload(payload)
                 .build();
 
-        return ApiHelper.CallApi(request);
+        return ApiHelper.callApi(request);
     }
 
     public static String callApi(ApiName apiName, Document xmlPayload)

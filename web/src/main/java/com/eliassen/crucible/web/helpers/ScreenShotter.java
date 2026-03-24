@@ -19,8 +19,14 @@ public class ScreenShotter extends ScreenShotterBase
         
         File screenShotFile = screenShot.getScreenshotAs(OutputType.FILE);
         byte[] screenshotData = screenShot.getScreenshotAs(OutputType.BYTES);
-        
+
         File destination = new File(screenShotName);
+        int version = 0;
+        while(destination.exists()){
+            screenShotName =
+                    todaysDirectory + "image_" + getDateString(true) + "_" + version++ + ".png";
+            destination = new File(screenShotName);
+        }
         try 
         {
 			FileUtils.copyFile(screenShotFile,destination);
@@ -29,6 +35,8 @@ public class ScreenShotter extends ScreenShotterBase
         {
 			e.printStackTrace();
 		}
+
+        CurrentPage.store(LATEST_SCREENSHOT_PATH,screenShotName);
         
         System.out.println("Screenshot name: " + screenShotName);
         return screenshotData;

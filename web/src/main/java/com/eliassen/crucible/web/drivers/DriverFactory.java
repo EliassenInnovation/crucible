@@ -1,31 +1,13 @@
 package com.eliassen.crucible.web.drivers;
 
-import java.io.File;
 import java.util.Locale;
-
-import org.apache.commons.lang3.SystemUtils;
-import com.eliassen.crucible.common.helpers.FileHelper;
 import com.eliassen.crucible.common.helpers.SystemHelper;
 import com.eliassen.crucible.web.drivers.mocks.MockWebdriver;
 
 public class DriverFactory
 {
-	public static final String FIREFOX_DRIVER_PROPERTY = "webdriver.gecko.driver";
-	public static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
-	public static final String EDGE_DRIVER_PROPERTY = "webdriver.edge.driver";
-	public static final String SAFARI_DRIVER_PROPERTY = "webdriver.safari.driver";
 	public static final String WEBDRIVER_HTTP_FACTORY_PROPERTY = "webdriver.http.factory";
-	public static final String WINDOWS_EXTENSION = ".exe";
-
-	public static final String CHROMEDRIVER_NAME = "chromedriver";
-	public static final String EDGEDRIVER_NAME = "msedgedriver";
-	public static final String FIREFOXDRIVER_NAME = "geckodriver";
-
-	public static final String SAFARIDRIVER_NAME = "safaridriver";
-
 	public static final String WEB_DRIVER_MANAGER = "WEB_DRIVER_MANAGER";
-
-	public String operatingSystem;
 
 	public DriverFactory()
 	{

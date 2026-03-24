@@ -14,7 +14,7 @@ ApiHelper is a Java utility class designed to simplify API interactions. It prov
 
 ### Sending API Requests
 
-To send an API request, create an instance of `ApiRequest` using the `ApiRequestBuilder`. You can then use the `CallApi` method to send the request and retrieve the response.
+To send an API request, create an instance of `ApiRequest` using the `ApiRequestBuilder`. You can then use the `callApi` method to send the request and retrieve the response.
 
 ```java
 ApiInfo apiInfo = new ApiInfo();
@@ -30,7 +30,7 @@ ApiRequest request = new ApiRequestBuilder()
         .setHeaders(headers)
         .build();
 
-ApiResponse response = ApiHelper.CallApi(request);
+ApiResponse response = ApiHelper.callApi(request);
 ```
 
 
@@ -59,13 +59,13 @@ ApiHelper supports data table-driven testing using Cucumber. You can pass a data
 Methods
 -------
 
-### `CallApi(ApiRequest request)`
+### `callApi(ApiRequest request)`
 
 Sends an API request and returns the response.
 
 *   `request`: The `ApiRequest` object containing the request details.
 
-### `CallApi(ApiInfo apiInfo, Headers headers, Object[] urlParameters)`
+### `callApi(ApiInfo apiInfo, Headers headers, Object[] urlParameters)`
 
 Sends an API request using the provided `ApiInfo` and `Headers` objects.
 

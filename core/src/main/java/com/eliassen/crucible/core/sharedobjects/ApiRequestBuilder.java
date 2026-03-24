@@ -6,7 +6,7 @@ public class ApiRequestBuilder
 {
     private String methodType;
     private String url;
-    private Headers headers;
+    private Headers headers = new Headers();
     private PreventAPILogging preventAPILogging;
     private JSONObject jsonPayload;
     private Parameters parameters;

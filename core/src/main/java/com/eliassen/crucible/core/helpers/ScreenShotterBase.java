@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
  * Abstract base class for screenshot functionality.
  */
 public abstract class ScreenShotterBase {
+    public static final String LATEST_SCREENSHOT_PATH = "latest_screenshot_path";
+
     /**
      * Default directory for storing screenshots.
      */

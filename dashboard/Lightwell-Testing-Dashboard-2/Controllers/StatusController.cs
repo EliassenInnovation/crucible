@@ -8,6 +8,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lightwell_Testing_Dashboard_2.Controllers
 {
@@ -47,9 +49,16 @@ namespace Lightwell_Testing_Dashboard_2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("status/GetWorstOffender")]
-        public ActionResult GetWorstOffender()
+        public async Task<ActionResult> GetWorstOffender()
         {
-            TestResults = _testResultWorker.GetTestResults();
+            do{
+                TestResults = _testResultWorker.GetTestResults();
+                
+                if(TestResults == null)
+                {
+                    await Task.Delay(2000);
+                }
+            } while(TestResults == null);
 
             BuildResult worst = null;
             foreach(BuildResult result in TestResults)

@@ -18,6 +18,7 @@
         <module>stepdefinitionlibrary</module>
         <module>taglibrary</module>
         <module>web</module>
+        <module>ai</module>
     </modules>
 
     <repositories>

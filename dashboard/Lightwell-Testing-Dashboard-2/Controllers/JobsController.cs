@@ -4,6 +4,7 @@ using Lightwell_Testing_Dashboard_2.Workers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Xml;
+using System;
 
 namespace Lightwell_Testing_Dashboard_2.Controllers
 {
@@ -12,20 +13,20 @@ namespace Lightwell_Testing_Dashboard_2.Controllers
         private readonly IConfiguration _config;
         TestResultWorker _testResultWorker;
 
-        public JobsController(IConfiguration config,TestResultWorker testResultWorker)
+        public JobsController(IConfiguration config, TestResultWorker testResultWorker)
         {
             _config = config;
             _testResultWorker = testResultWorker;
         }
 
         private JobsWorker _jobsWorker;
-        public JobsWorker JobsWorker 
-        { 
+        public JobsWorker JobsWorker
+        {
             get
             {
-                if(_jobsWorker == null)
+                if (_jobsWorker == null)
                 {
-                    _jobsWorker = new JobsWorker(_config,_testResultWorker);
+                    _jobsWorker = new JobsWorker(_config, _testResultWorker);
                 }
                 return _jobsWorker;
             }
@@ -57,18 +58,43 @@ namespace Lightwell_Testing_Dashboard_2.Controllers
         [HttpPost("/jobs/stopjob")]
         public IActionResult StopJob(string jobPath, string buildNumber)
         {
-            string jobUrl = "/job/" + jobPath;
-            string fullBuildUrl = jobUrl + "/" + buildNumber + "/stop";
-            ApiResponse result = ApiWorker.PostApi(fullBuildUrl, true,true);
-            if (result.Response == null)
+            try
             {
-                //apparently no news is good news
-                _testResultWorker.UpdateBuildInfoAsync(jobUrl);
-                return Ok(new { message = "Job stopped successfully", success = true });
+                string jobUrl = "/job/" + jobPath;
+                string fullBuildUrl = jobUrl + "/" + buildNumber + "/stop";
+                ApiResponse result = ApiWorker.PostApi(fullBuildUrl, true, true);
+
+                // Check if the API call was successful (you might need to adjust this condition)
+                if (result.Response == null || result.Response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    _testResultWorker.UpdateBuildInfoAsync(jobPath);
+                    return Json(new
+                    {
+                        ok = true,
+                        message = "Job stopped successfully",
+                        success = true
+                    });
+                }
+                else
+                {
+                    int statusCode = (int)result.Response.StatusCode;
+                    return Json(new
+                    {
+                        ok = false,
+                        error = $"API call failed with status code: {statusCode}",
+                        statusCode = statusCode
+                    });
+                }
             }
-            else
+            catch (Exception e)
             {
-                return StatusCode(((int)result.Response.StatusCode));
+                Console.WriteLine(e.Message);
+                return Json(new
+                {
+                    ok = false,
+                    error = "Internal server error",
+                    details = e.Message
+                });
             }
         }
     }

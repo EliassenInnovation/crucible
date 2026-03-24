@@ -75,6 +75,30 @@ namespace Lightwell_Testing_Dashboard_2.Controllers
             }
         }
 
+        [HttpPost("home/GetJunitTestResult")]
+        public ActionResult GetJunitTestResult(string jobName, int buildNumber)
+        {
+            if (!jobName.Contains("/job/"))
+            {
+                string[] parts = jobName.Split("/");
+                jobName = "";
+                foreach(String part in parts)
+                {
+                    if(part != "")
+                    {
+                        jobName += "/job/" + part;
+                    }
+                }
+            }
+
+            if (!jobName.Contains(ApiWorker.Jenkins))
+            {
+                jobName = ApiWorker.Jenkins + jobName;
+            }
+            JunitTestResults results = _testResultWorker.GetJunitTestCaseInfo(jobName, buildNumber).Result;
+            return Json(results);
+        }
+
         [HttpGet]
         public ActionResult<SuccessResult> TriggerBuild(string buildPath)
         {

@@ -10,6 +10,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -398,12 +399,17 @@ namespace Lightwell_Testing_Dashboard_2.Workers
         }
 
 
-        private async Task<JunitTestResults> GetJunitTestCaseInfo(string buildDefinitionUrl, int buildNumber)
+        public async Task<JunitTestResults> GetJunitTestCaseInfo(string buildDefinitionUrl, int buildNumber)
+        {
+            JObject results = await GetJunitTestCaseInfoJson(buildDefinitionUrl, buildNumber);
+            return JsonConvert.DeserializeObject<JunitTestResults>(results?.ToString());
+        }
+
+        public async Task<JObject> GetJunitTestCaseInfoJson(string buildDefinitionUrl, int buildNumber)
         {
             string testReportJsonApi = "testReport/api/json";
             string apiUrl = ApiWorker.ConstructApiUrl(new string[] { buildDefinitionUrl, buildNumber.ToString(), testReportJsonApi });
-            JObject testResultJson = await ApiWorker.GetJsonFromApiAsync(apiUrl);
-            return JsonConvert.DeserializeObject<JunitTestResults>(testResultJson.ToString());
+            return await ApiWorker.GetJsonFromApiAsync(apiUrl);
         }
 
         private void AddTagsToBuildResult(BuildResult result, JenkinsBuild jenkinsBuild)

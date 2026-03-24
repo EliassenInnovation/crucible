@@ -19,8 +19,6 @@ public class SystemHelper {
     public static final String PASSWORD = "password";
     public static final String SETTINGS = "settings";
 
-    protected static final Map<String, Object> configValues = new HashMap<>();
-
     public static String getCommandLineParameter(String parameterName) {
         Object cachedValue = getCachedConfigSetting(parameterName);
         return cachedValue != null ? cachedValue.toString() : storeAndRetrieveSystemProperty(parameterName);
@@ -36,7 +34,7 @@ public class SystemHelper {
 
         if (prop != null) {
             prop = parameterName.equals(PASSWORD) ? prop : prop.toLowerCase();
-            configValues.put(parameterName, prop); // Store in configValues
+            getConfigValues().put(parameterName, prop); // Store in configValues
         }
         return prop;
     }
@@ -180,11 +178,23 @@ public class SystemHelper {
     }
 
     private static Object getCachedConfigSetting(String configSettingName) {
-        return configValues.get(configSettingName); // Returns null if not found
+        return getConfigValues().get(configSettingName); // Returns null if not found
     }
 
-    private static void cacheConfigSetting(String configSettingName, Object value) {
-        configValues.put(configSettingName, value);
+    public static void cacheConfigSetting(String configSettingName, Object value) {
+        getConfigValues().put(configSettingName, value);
+    }
+
+    private static final Map<String, Map<String, Object>> _threadConfigValues = new HashMap<>();
+
+    private static Map<String, Object> getConfigValues() {
+        String threadName = Thread.currentThread().getName().toLowerCase();
+
+        if (!_threadConfigValues.containsKey(threadName)) {
+            _threadConfigValues.put(threadName, new HashMap<>());
+        }
+
+        return _threadConfigValues.get(threadName);
     }
 
     public static boolean isRunningInDocker() {

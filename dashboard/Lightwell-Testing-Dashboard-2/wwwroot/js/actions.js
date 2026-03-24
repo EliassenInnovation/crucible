@@ -85,8 +85,7 @@ function yesNoDialog(message, yesCallback, noCallback, imageSource) {
 //}
 
 function stopThis(jobPath, buildName, buildNumber) {
-    var answer = confirm("Are you sure you want to stop " + buildName + "?"); 
-
+    var answer = confirm("Are you sure you want to stop " + buildName + "?");
     if (answer) {
         var apiUrl = "/jobs/stopjob";
         $.ajax({
@@ -97,19 +96,20 @@ function stopThis(jobPath, buildName, buildNumber) {
                 "jobPath": jobPath,
                 "buildNumber": buildNumber
             },
-            success: function (result) {
-                if (result.success) {
+            success: function (response) {
+                if (response.ok) {
                     showNotification(buildName + " stopped");
-
                     if (REFRESH_INTERVAL !== 0) {
-                        setTimeout(function () { refreshFunction }, REFRESH_INTERVAL);
+                        setTimeout(function () { refreshFunction() }, REFRESH_INTERVAL);
                     }
                 } else {
-                    alert("Stopping " + buildName + " failed!");
+                    alert("Stopping " + buildName + " failed! " + 
+                          (response.error || "Unknown error"));
                 }
             },
-            error: function (result) {
-                alert(result.statusText + "\n" + result.status);
+            error: function (xhr, status, error) {
+                // This handles network errors or invalid JSON responses
+                alert("Request failed: " + error);
             }
         });
     }

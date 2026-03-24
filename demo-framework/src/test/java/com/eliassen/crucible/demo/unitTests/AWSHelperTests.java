@@ -46,7 +46,7 @@ public class AWSHelperTests {
 //        //apiRequest.parameters = null;
 //        //apiRequest.url = "https://ec2.us-east-2.amazonaws.com/?Action=DescribeAvailabilityZones&Version=2016-11-15";
 //
-//        ApiResponse apiResponse = new ApiHelper().CallApi(apiRequest);
+//        ApiResponse apiResponse = new ApiHelper().callApi(apiRequest);
 //        Logger.log("Framework code response: " + apiResponse.code);
 //
 //        HttpGet httpGet = new HttpGet("https://ec2.us-east-2.amazonaws.com/?Action=DescribeAvailabilityZones&Version=2016-11-15");

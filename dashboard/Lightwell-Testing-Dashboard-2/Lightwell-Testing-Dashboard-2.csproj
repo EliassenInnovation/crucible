@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Lightwell_Testing_Dashboard_2</RootNamespace>
     <UserSecretsId>95677f53-7af9-4ccd-8d28-247eb1150f7e</UserSecretsId>
   </PropertyGroup>

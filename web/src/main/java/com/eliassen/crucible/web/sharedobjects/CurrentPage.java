@@ -115,7 +115,7 @@ public class CurrentPage {
     }
 
     public static void storeCurrentWebDriver(String driverName) {
-        storeObject(driverName,CurrentPage.getDriver());
+        storeObject(driverName,getDriver());
     }
 
     public static void scrollIntoView(String elementNameOrXpath) {
