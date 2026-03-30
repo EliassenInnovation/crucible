@@ -37,4 +37,8 @@ public class AiHelper {
 
         return AiHelper.getChatModel().chat(chatMessage).aiMessage().text();
     }
+
+    public static String callLLM(ChatMessage chatMessage){
+        return getChatModel().chat(chatMessage).aiMessage().text();
+    }
 }
