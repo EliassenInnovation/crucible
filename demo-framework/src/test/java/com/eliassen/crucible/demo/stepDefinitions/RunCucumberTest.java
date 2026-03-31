@@ -7,25 +7,13 @@ import io.cucumber.junit.CucumberOptions;
 
 import java.io.IOException;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        plugin = {"pretty",
-                "json:target/cucumber-reports/Cucumber.json",
-                "junit:cucumber-reports/cucumber-junit.xml"},
-        glue = {
-                "com.eliassen.crucible.core.stepdefinitions",
-                "com.eliassen.crucible.web.stepdefinitions",
-                "com.lightwell.testing.demo.stepDefinitions",
-                "com.Lightwell.dbtesting.common.stepDefinitions",
-                "com.Lightwell.common.stepdefinitions"
-        },
-        features = {"src/test/resources/com/lightwell/testing/demo/features"})
 public class RunCucumberTest extends RunCucumberTestBase
 {
     private static String[] cucumberOptions = {
             "--plugin", "pretty",
             "--plugin", "json:cucumber-reports/cucumber.json",
             "--plugin", "junit:cucumber-reports/cucumber-junit.xml",
+            "--plugin", "html:cucumber-rpoerts/cucumber.html",
             "--glue" , "com.eliassen.crucible.core.stepdefinitions",
             "--glue" , "com.eliassen.crucible.web.stepdefinitions",
             "--glue" , "com.lightwell.testing.demo.stepDefinitions",
