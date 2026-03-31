@@ -37,7 +37,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cucumber.version>7.20.1</cucumber.version>
+        <cucumber.version>7.34.1</cucumber.version>
         <jackson.version>2.18.3</jackson.version>
     </properties>
 
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.28.0</version>
+            <version>4.41.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
