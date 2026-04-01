@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differences Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           DESIGN TOKENS
+           ═══════════════════════════════════════════ */
+        :root {
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        /* ─── Light Theme ─── */
+        [data-theme="light"] {
+            --bg-primary: #F7F6F3;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #EFEEE9;
+            --bg-accent-subtle: #F0EFFA;
+            --border-primary: #E2E0D8;
+            --border-subtle: #EDEBE5;
+            --text-primary: #1A1917;
+            --text-secondary: #5C5A53;
+            --text-tertiary: #8A877F;
+            --accent: #3D38B2;
+            --accent-hover: #312DA0;
+            --accent-subtle: #6B66D1;
+            --accent-surface: #EEEDFA;
+            --status-bar: #1A1917;
+            --status-bar-text: #F7F6F3;
+            --image-bg: #F2F1EC;
+            --scrollbar-track: transparent;
+            --scrollbar-thumb: #CCC9C0;
+            --scrollbar-thumb-hover: #B0ADA5;
+            --toggle-bg: #E2E0D8;
+            --toggle-knob: #FFFFFF;
+            --toggle-icon: #8A877F;
+            --noise-opacity: 0.025;
+        }
+
+        /* ─── Dark Theme ─── */
+        [data-theme="dark"] {
+            --bg-primary: #111110;
+            --bg-secondary: #1A1A19;
+            --bg-tertiary: #222221;
+            --bg-accent-subtle: #1E1D33;
+            --border-primary: #2C2C2A;
+            --border-subtle: #232322;
+            --text-primary: #EDECE8;
+            --text-secondary: #9B9990;
+            --text-tertiary: #6B6960;
+            --accent: #8B86E0;
+            --accent-hover: #A09BEA;
+            --accent-subtle: #6B66D1;
+            --accent-surface: #1E1D33;
+            --status-bar: #EDECE8;
+            --status-bar-text: #111110;
+            --image-bg: #1E1E1D;
+            --scrollbar-track: transparent;
+            --scrollbar-thumb: #333331;
+            --scrollbar-thumb-hover: #444442;
+            --toggle-bg: #2C2C2A;
+            --toggle-knob: #EDECE8;
+            --toggle-icon: #6B6960;
+            --noise-opacity: 0.04;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.5s var(--ease-out-expo),
+                        color 0.35s var(--ease-out-expo);
+        }
+
+        /* ═══════════════════════════════════════════
+           TEXTURE OVERLAY
+           ═══════════════════════════════════════════ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: var(--noise-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ═══════════════════════════════════════════
+           PAGE LAYOUT
+           ═══════════════════════════════════════════ */
+        .page-wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 40px 32px 64px;
+        }
+
+        /* ═══════════════════════════════════════════
+           HEADER
+           ═══════════════════════════════════════════ */
+        .report-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--border-primary);
+            animation: fadeSlideDown 0.7s var(--ease-out-expo) both;
+        }
+
+        .report-header__left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .report-header__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-surface);
+            padding: 4px 12px;
+            border-radius: 100px;
+            width: fit-content;
+        }
+
+        .report-header__badge::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .report-header__title {
+            font-family: var(--font-display);
+            font-size: 38px;
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .report-header__meta {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        .report-header__right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-top: 8px;
+        }
+
+        /* ═══════════════════════════════════════════
+           THEME TOGGLE
+           ═══════════════════════════════════════════ */
+        .theme-toggle {
+            position: relative;
+            width: 56px;
+            height: 30px;
+            border: none;
+            border-radius: 100px;
+            background: var(--toggle-bg);
+            cursor: pointer;
+            transition: background 0.35s var(--ease-out-expo);
+            flex-shrink: 0;
+        }
+
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--toggle-knob);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+            transition: transform 0.4s var(--ease-out-back),
+                        background 0.35s var(--ease-out-expo);
+        }
+
+        [data-theme="dark"] .theme-toggle::after {
+            transform: translateX(26px);
+        }
+
+        .theme-toggle__icons {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7px;
+            pointer-events: none;
+        }
+
+        .theme-toggle__icon {
+            width: 16px;
+            height: 16px;
+            color: var(--toggle-icon);
+            transition: color 0.35s var(--ease-out-expo),
+                        opacity 0.35s var(--ease-out-expo);
+        }
+
+        [data-theme="light"] .theme-toggle__icon--sun { opacity: 1; color: var(--accent); }
+        [data-theme="light"] .theme-toggle__icon--moon { opacity: 0.4; }
+        [data-theme="dark"] .theme-toggle__icon--sun { opacity: 0.4; }
+        [data-theme="dark"] .theme-toggle__icon--moon { opacity: 1; color: var(--accent); }
+
+        /* ═══════════════════════════════════════════
+           SECTIONS COMMON
+           ═══════════════════════════════════════════ */
+        .section {
+            margin-bottom: 32px;
+            animation: fadeSlideUp 0.6s var(--ease-out-expo) both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+
+        .section__label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .section__label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .section__card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: background 0.5s var(--ease-out-expo),
+                        border-color 0.35s var(--ease-out-expo),
+                        box-shadow 0.35s var(--ease-out-expo);
+            overflow: hidden;
+        }
+
+        /* ═══════════════════════════════════════════
+           REPORT CONTENT SECTION
+           ═══════════════════════════════════════════ */
+        .report-content {
+            max-height: 520px;
+            overflow-y: auto;
+            padding: 32px 36px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+
+        /* Scrollbar styling */
+        .report-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .report-content::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+
+        .report-content::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 100px;
+        }
+
+        .report-content::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+        }
+
+        .report-content {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+
+        /* Allow dynamic HTML to use standard elements */
+        .report-content h1,
+        .report-content h2,
+        .report-content h3,
+        .report-content h4 {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            font-weight: 600;
+            margin: 1.5em 0 0.5em;
+        }
+
+        .report-content h1:first-child,
+        .report-content h2:first-child,
+        .report-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .report-content h1 { font-size: 22px; }
+        .report-content h2 { font-size: 18px; }
+        .report-content h3 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+        .report-content p { margin-bottom: 0.85em; }
+
+        .report-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            font-size: 13px;
+        }
+
+        .report-content table th,
+        .report-content table td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .report-content table th {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--bg-tertiary);
+        }
+
+        .report-content table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .report-content ul, .report-content ol {
+            padding-left: 1.5em;
+            margin-bottom: 0.85em;
+        }
+
+        .report-content code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: var(--bg-tertiary);
+            padding: 2px 7px;
+            border-radius: var(--radius-sm);
+        }
+
+        .report-content pre {
+            background: var(--bg-tertiary);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
+        .report-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .report-content a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-decoration-color: var(--accent-subtle);
+            text-underline-offset: 3px;
+            transition: text-decoration-color 0.2s;
+        }
+
+        .report-content a:hover {
+            text-decoration-color: var(--accent);
+        }
+
+        .report-content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 1em 0;
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* ═══════════════════════════════════════════
+           IMAGES SECTION
+           ═══════════════════════════════════════════ */
+        .images-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .image-panel {
+            animation: fadeSlideUp 0.6s var(--ease-out-expo) both;
+        }
+
+        .image-panel:nth-child(1) { animation-delay: 0.25s; }
+        .image-panel:nth-child(2) { animation-delay: 0.35s; }
+
+        .image-panel__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-tertiary);
+            transition: background 0.5s var(--ease-out-expo);
+        }
+
+        .image-panel__title {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .image-panel__number {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            background: var(--bg-secondary);
+            padding: 2px 10px;
+            border-radius: 100px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .image-panel__body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            padding: 20px;
+            background: var(--image-bg);
+            transition: background 0.5s var(--ease-out-expo);
+        }
+
+        .image-panel__body img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .image-placeholder svg {
+            width: 40px;
+            height: 40px;
+            opacity: 0.3;
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .report-footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            animation: fadeSlideUp 0.6s var(--ease-out-expo) 0.4s both;
+        }
+
+        .report-footer__line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .report-footer__dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* ═══════════════════════════════════════════
+           ANIMATIONS
+           ═══════════════════════════════════════════ */
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 24px 16px 48px;
+            }
+
+            .report-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .report-header__title {
+                font-size: 28px;
+            }
+
+            .report-content {
+                padding: 20px 22px;
+                max-height: 400px;
+            }
+
+            .images-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .image-panel__body {
+                min-height: 200px;
+            }
+        }
+
+        @media print {
+            body::before { display: none; }
+            .theme-toggle { display: none; }
+            .report-content { max-height: none; overflow: visible; }
+            .section, .section__card { break-inside: avoid; }
+            .page-wrapper { max-width: 100%; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+
+        <!-- ═══ HEADER ═══ -->
+        <header class="report-header">
+            <div class="report-header__left">
+                <span class="report-header__badge">Analysis</span>
+                <h1 class="report-header__title">Differences Report</h1>
+                <p class="report-header__meta">Generated on <span id="report-date"></span></p>
+            </div>
+            <div class="report-header__right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+                    <span class="theme-toggle__icons">
+                        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ═══ REPORT CONTENT SECTION ═══ -->
+        <div class="section">
+            <div class="section__label">Report Details</div>
+            <div class="section__card">
+                <div class="report-content" id="reportContent">
+                    {{report}}
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ IMAGE COMPARISON SECTION ═══ -->
+        <div class="section">
+            <div class="section__label">Visual Comparison</div>
+            <div class="images-grid">
+
+                <!-- Image One -->
+                <div class="image-panel">
+                    <div class="section__card">
+                        <div class="image-panel__header">
+                            <span class="image-panel__title">Image One</span>
+                            <span class="image-panel__number">01</span>
+                        </div>
+                        <div class="image-panel__body" id="imageOneContainer">
+                            <img src="data:image/png;base64,{{imageOne}}" alt="Image One" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Two -->
+                <div class="image-panel">
+                    <div class="section__card">
+                        <div class="image-panel__header">
+                            <span class="image-panel__title">Image Two</span>
+                            <span class="image-panel__number">02</span>
+                        </div>
+                        <div class="image-panel__body" id="imageTwoContainer">
+                            <img src="data:image/png;base64,{{imageTwo}}" alt="Image Two" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ FOOTER ═══ -->
+        <footer class="report-footer">
+            <div class="report-footer__line">
+                <span class="report-footer__dot"></span>
+                <span>Differences Report</span>
+            </div>
+            <div class="report-footer__line">
+                <span>Eliassen Group</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ─── Date display ───
+        document.getElementById('report-date').textContent =
+            new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+        // ─── Theme toggle ───
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Check stored preference or system preference
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+            html.setAttribute('data-theme', stored);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.setAttribute('data-theme', 'dark');
+        }
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>
