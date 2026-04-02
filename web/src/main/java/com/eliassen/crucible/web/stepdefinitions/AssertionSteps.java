@@ -473,7 +473,7 @@ public class AssertionSteps {
         }
     }
 
-    @Then("I verify there are {string} rows where the {string} column text is {string}")
+    @Then("I verify there are \"{int}\" rows where the {string} column text is {string}")
     public void iVerifyThereAreRowsWhereTheColumnTextIs(int expectedAmount, String columnElement, String expectedText) {
         List<WebElement> rows = TableHelper.GetColumnValues(columnElement);
         int foundRows = 0;

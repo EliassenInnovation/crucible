@@ -20,7 +20,7 @@ let LOGO_PIC = "LightwellLogo.png";
 let SIDE_BAR_TOP_COLOR = "white";
 
 //sideBar bottom color
-let SIDE_BAR_BOTTOM_COLOR = "#4b33ca";
+let SIDE_BAR_BOTTOM_COLOR = "#332e70";
 
 //show weather icons
 //WEATHER or CHECKS
@@ -36,7 +36,7 @@ let CRUMB_COLOR = "black";
 let SHOW_MILESTONES_ON_LANDING = true;
 
 //Full DateTime for refresh
-let REFRESH_SHOWS_FULL_DATE_TIME = false;
+let REFRESH_SHOWS_FULL_DATE_TIME = true;
 
 //Summary page name
 let SUMMARY_PAGE_NAME = 'Summary';

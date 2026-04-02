@@ -42,6 +42,10 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
         public static XmlDocument GetXmlFromApi(string apiUrl)
         {
+            if(!apiUrl.StartsWith("/"))
+            {
+                apiUrl = "/" + apiUrl;
+            }
             ApiResponse jobFeed = CallApi(ApiWorker.Jenkins + apiUrl);
             XmlDocument xmlDoc = new XmlDocument();
             if(jobFeed != null){
