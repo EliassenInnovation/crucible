@@ -11,6 +11,7 @@ import com.eliassen.crucible.models.TestResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore("Needs AWS token set")
 public class TestResultsTests {
     final static URI DASHBOARD_URI = URI.create("http://localhost:5000/home/GetJunitTestResult");
     final static String API_JSON = "/api/json";

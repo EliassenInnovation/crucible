@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
+@Ignore("Needs AWS token set")
 public class GetArtifactTests {
     final static URI CUCUMBER_JSON_URI = URI.create("http://10.152.2.12:8080/job/web/job/Account_Information/job/Account_Information/ws/cucumber-reports/cucumber.json");
     final static String AUTHORIZATION_TOKEN = "Basic bWJhcm5hOjExZWE3YjJmYjQ3ZTRiZWFkMzAzOWI1NDI1ZDc5NzA3Njk=";

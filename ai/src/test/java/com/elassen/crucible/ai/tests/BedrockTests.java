@@ -8,6 +8,7 @@ import dev.langchain4j.data.message.TextContent;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.bedrock.BedrockChatModel;
 import dev.langchain4j.model.chat.ChatModel;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 
+@Ignore("Needs AWS token set")
 public class BedrockTests {
     ChatModel bedrockModel = BedrockChatModel.builder()
             .modelId("us.anthropic.claude-opus-4-6-v1")

@@ -6,6 +6,7 @@ import com.eliassen.crucible.core.sharedobjects.ApiRequestBuilder;
 import com.eliassen.crucible.core.sharedobjects.ApiResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
+@Ignore("Needs AWS token set")
 public class JenkinsConnectTests {
     final static URI JENKINS_URI = URI.create("http://10.152.2.12:8080");
     final static String API_JSON = "/api/json";

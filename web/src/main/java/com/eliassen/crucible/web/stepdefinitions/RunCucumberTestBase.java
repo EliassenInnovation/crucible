@@ -7,7 +7,6 @@ import io.cucumber.core.cli.Main;
 import org.junit.AfterClass;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
