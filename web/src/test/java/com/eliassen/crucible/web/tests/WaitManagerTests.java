@@ -72,17 +72,5 @@ class WaitManagerTests {
         WaitManager.setClickableExplicitWait(-1);
         assertEquals(15, WaitManager.getClickableExplicitWait()); // Should revert to global
     }
-
-    @Test
-    void testReadyzWaitValues(){
-        WaitManager.setReadyzWaitTime(7);
-        assertEquals(7,WaitManager.getReadyzWaitTime());
-    }
-
-    @Test
-    void testFallBackDefaultValueReadyzWait(){
-        assertEquals(15, WaitManager.getDefaultReadyzWaitTime());
-    }
-
 }
 

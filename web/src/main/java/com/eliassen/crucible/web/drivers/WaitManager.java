@@ -11,20 +11,19 @@ public class WaitManager {
 
     private static boolean logInvalidWaitTimes = false;
 
-    private static Double globalExplicitWait;
-    private static Double defaultExplicitWaitTime;
-    private static Double clickableExplicitWait;
-    private static Double visibleExplicitWait;
-    private static Double presenceExplicitWait;
-    private static Double textExplicitWait;
-    private static Double attributeExplicitWait;
-    private static Double frameExplicitWait;
-    private static Double windowExplicitWait;
-    private static Double staleElementExplicitWait;
-    private static Double implicitWait;
-    private static Double pageLoadTimeout;
-    private static Double pollingIntervalTime;
-    private static Double readyzWaitTime;
+    private static Double globalExplicitWait = null;
+    private static Double defaultExplicitWaitTime = null;
+    private static Double clickableExplicitWait = null;
+    private static Double visibleExplicitWait = null;
+    private static Double presenceExplicitWait = null;
+    private static Double textExplicitWait = null;
+    private static Double attributeExplicitWait = null;
+    private static Double frameExplicitWait = null;
+    private static Double windowExplicitWait = null;
+    private static Double staleElementExplicitWait = null;
+    private static Double implicitWait = null;
+    private static Double pageLoadTimeout = null;
+    private static Double pollingIntervalTime = null;
 
     // Constants for settings
     public static final String GLOBAL_EXPLICIT_WAIT = "GLOBAL_EXPLICIT_WAIT";
@@ -40,8 +39,6 @@ public class WaitManager {
     public static final String IMPLICIT_WAIT = "IMPLICIT_WAIT";
     public static final String PAGE_LOAD_TIMEOUT = "PAGE_LOAD_TIMEOUT";
     public static final String POLLING_INTERVAL = "POLLING_INTERVAL";
-    public static final String READYZ_WAIT_TIME = "READYZ_WAIT_TIME";
-    public static final String READYZ_WAIT_TIME_DEFAULT = "READYZ_WAIT_TIME_DEFAULT";
 
     // Default values (stored in seconds)
     private static final Double DEFAULT_EXPLICIT_WAIT_VALUE = 15d;
@@ -221,9 +218,9 @@ public class WaitManager {
     public static double getPollingIntervalTime() {
         if (pollingIntervalTime == null) {
             Double setting = SystemHelper.getApplicationSettingDouble(POLLING_INTERVAL);
-            defaultExplicitWaitTime = validateAndLog(POLLING_INTERVAL, setting, POLLING_INTERVAL_DEFAULT);
+            pollingIntervalTime = validateAndLog(POLLING_INTERVAL, setting, POLLING_INTERVAL_DEFAULT);
         }
-        return defaultExplicitWaitTime;
+        return pollingIntervalTime;
     }
 
     public static void setPollingIntervalTime(double pollingIntervalTime) {
@@ -262,26 +259,6 @@ public class WaitManager {
                 Logger.logError("Unsupported TimeUnit: " + timeUnit + ". Defaulting to milliseconds.");
                 return Duration.ofMillis(value * 1000);
         }
-    }
-
-    public static double getDefaultReadyzWaitTime() {
-        if (readyzWaitTime == null) {
-            Double setting = SystemHelper.getApplicationSettingDouble(READYZ_WAIT_TIME_DEFAULT);
-            readyzWaitTime = validateAndLog(READYZ_WAIT_TIME, setting, READYZ_WAIT_TIME_DEFAULT_VALUE);
-        }
-        return readyzWaitTime;
-    }
-
-    public static double getReadyzWaitTime() {
-        if (readyzWaitTime == null) {
-            Double setting = SystemHelper.getApplicationSettingDouble(READYZ_WAIT_TIME);
-            readyzWaitTime = validateAndLog(READYZ_WAIT_TIME, setting, getDefaultReadyzWaitTime());
-        }
-        return readyzWaitTime;
-    }
-
-    public static void setReadyzWaitTime(double readyzWait) {
-        WaitManager.readyzWaitTime = validateAndLog(READYZ_WAIT_TIME, readyzWait, READYZ_WAIT_TIME_DEFAULT_VALUE);
     }
 
     /**
@@ -328,10 +305,6 @@ public class WaitManager {
                 return getPageLoadTimeout();
             case POLLING_INTERVAL:
                 return getPollingIntervalTime();
-            case READYZ_WAIT_TIME:
-                return getReadyzWaitTime();
-            case READYZ_WAIT_TIME_DEFAULT:
-                return getDefaultReadyzWaitTime();
             default:
                 Logger.logError("Unknown wait setting: " + settingName);
                 return DEFAULT_EXPLICIT_WAIT_VALUE;
@@ -397,8 +370,6 @@ public class WaitManager {
             case POLLING_INTERVAL:
                 setPollingIntervalTime(seconds);
                 break;
-            case READYZ_WAIT_TIME:
-                setReadyzWaitTime(seconds);
             default:
                 Logger.logError("Unknown wait setting: " + waitName);
         }
@@ -421,7 +392,6 @@ public class WaitManager {
         staleElementExplicitWait = null;
         implicitWait = null;
         pageLoadTimeout = null;
-        readyzWaitTime = null;
     }
 }
 
