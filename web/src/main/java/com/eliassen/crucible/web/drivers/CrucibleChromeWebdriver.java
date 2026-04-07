@@ -69,7 +69,7 @@ public class CrucibleChromeWebdriver extends CrucibleWebdriver
         if(optionsArray != null && !optionsArray.isEmpty())
         {
             optionsArray.forEach(o -> {
-                if(o.toString().contains("=")) {
+                if(o.toString().contains("=") && !o.toString().startsWith("--")) {
                     String[] parts = o.toString().split("=");
                     String key = parts[0];
                     Object value = TestHelper.inferDataType(parts[1]);
