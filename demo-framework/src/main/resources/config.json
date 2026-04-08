@@ -15,7 +15,6 @@
     "allowDriverReuse" : "false",
     "baseNameSpace": "com.eliassen.crucible.demo.pageObjects.",
     "progressHandlerName": "DemoProgressHandler",
-    "WEB_DRIVER_MANAGER": true
   },
   "urls": {
     "apps_local": "http://localhost:8080/",

@@ -28,6 +28,7 @@ namespace Lightwell_Testing_Dashboard_2.Workers
         public const string WORKSPACE = "/ws/";
         public const string BUILD_QUEUE = "computer/api/xml?tree=computer[executors[currentExecutable[url]],oneOffExecutors[currentExecutable[url]]]&xpath=//url&wrapper=builds";
         public const string DESCRIPTION_API = "/description";
+        public const string QUEUE_API = "/queue/api/json";
 
         public static bool JenkinsIdle
         {

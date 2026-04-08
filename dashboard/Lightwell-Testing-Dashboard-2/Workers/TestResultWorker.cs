@@ -1,7 +1,6 @@
 ﻿using Lightwell_Testing_Dashboard_2.Models;
 using Lightwell_Testing_Dashboard_2.Models.JobFeed;
 using Lightwell_Testing_Dashboard_2.Tools;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,9 +9,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
+using Lightwell_Testing_Dashboard_2.Models.Queue;
 
 namespace Lightwell_Testing_Dashboard_2.Workers
 {
@@ -20,6 +19,7 @@ namespace Lightwell_Testing_Dashboard_2.Workers
     {
         public const string NOT_FOUND = "not found";
         public const string BUILDING = "Building";
+        public const string QUEUED = "Queued";
         public const string SUCCESS = "SUCCESS";
         public const string DISABLED = "disabled";
         public const string NOT_RUN = "not run";
@@ -32,6 +32,10 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
         public TestResultWorker(IConfiguration config) : base(config) { }
 
+        public JenkinsQueue JenkinsQueue { get; set; }
+
+        public List<string> JobsInQueueByName { get; set; }
+        
         private string _sortOrder;
         public string SortOrder
         {
@@ -207,6 +211,10 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
             try
             {
+                JenkinsQueue =
+                    JsonConvert.DeserializeObject<JenkinsQueue>(
+                        ApiWorker.GetJsonFromApi(ApiWorker.QUEUE_API).ToString());
+                JobsInQueueByName = JenkinsQueue!.Items.Select(i => i.Task.Name).ToList();
                 List<JenkinsBuild> builds = await GetJenkinsJobsAsync();
                 if (builds != null)
                 {
@@ -335,7 +343,11 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
             if (specificBuild != null) 
             {
-                if (specificBuild.TestResults == null)
+                if (JobsInQueueByName!.Contains(specificBuild.Name))
+                {
+                    buildResult.Result = QUEUED;
+                }
+                else if (specificBuild.TestResults == null)
                 {
                     buildResult.Result = ApiWorker.IsBuilding(build.Color) ? BUILDING : specificBuild.Result;
                     buildResult.PassedTests = -1;

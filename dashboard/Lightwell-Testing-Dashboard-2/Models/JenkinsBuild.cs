@@ -29,7 +29,7 @@ namespace Lightwell_Testing_Dashboard_2.Models
 
         public const string FOLDER_TYPE = "com.cloudbees.hudson.plugins.folder.Folder";
 
-        [JsonProperty("_class")]
+        [JsonProperty(_CLASS)]
         public string Class { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }

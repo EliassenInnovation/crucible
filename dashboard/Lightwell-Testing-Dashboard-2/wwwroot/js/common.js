@@ -290,6 +290,11 @@ function createResultDiv(testResult) {
             statusDiv.className += " building";
             testDiv.className += " buildingDiv";
             break;
+        case "Queued":
+            resultBoxClass += "queued";
+            statusDiv.className += " queued";
+            testDiv.className += " queuedDiv";
+            break;
         case "ERROR":
             resultBoxClass += " error";
             statusDiv.className += " error";
@@ -391,7 +396,7 @@ function createBuildButton(parent, buildName, result, buildNumber) {
 
     var path = createBuildPath(parent, buildName);
 
-    if (result !== "Building") {
+    if (!["Building", "Queued"].includes(result)) {
         buildButton.innerText = "Build";
         buildButton.id = parent + buildName + "buildbutton";
         buildButton.className = "buildButton";
@@ -418,7 +423,7 @@ function createIconBuildButton(parent, buildName, result, buildNumber) {
     buildButton.innerText = "";
     buildButton.className = "fa-button";
 
-    if (result !== "Building") {
+    if (!["Building", "Queued"].includes(result)) {
         buildButton.innerHTML = "<i class='fa-solid fa-circle-arrow-right' style='color: #25c322;'></i>";
         buildButton.id = parent + buildName + "buildbutton";
     } else {

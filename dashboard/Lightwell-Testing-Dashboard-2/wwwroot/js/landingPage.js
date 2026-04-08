@@ -305,6 +305,9 @@ function getResultClass(result) {
         case "Building":
             resultClass = "building";
             break;
+        case "Queued":
+            resultClass = "queued";
+            break;
         case "ERROR":
             resultClass = "error";
             break;

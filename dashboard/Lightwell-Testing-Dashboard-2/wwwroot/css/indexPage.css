@@ -138,6 +138,11 @@ body, html {
     background-color: aqua;
 }
 
+.queued {
+    background-color: #20B2AA;
+    color: white;
+}
+
 @keyframes growingCircle {
     0% {
         background-color: black;
@@ -247,7 +252,9 @@ body, html {
     width: 4em;
     min-width: 4em;
     border-radius: 15px;
-    display: inline-block
+    display: inline-block;
+    position: relative;
+    bottom: .4em;
 }
 
 .footerDiv {
