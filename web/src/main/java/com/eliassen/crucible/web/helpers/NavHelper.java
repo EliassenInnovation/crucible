@@ -28,7 +28,7 @@ public class NavHelper {
             waitForElementToBeClickable(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
             CurrentPage.getDriver().findElement(By.xpath(elementPath)).click();
         } catch (StaleElementReferenceException stere) {
-            clickOn(elementPath);
+            clickOn(elementName);
         } catch (Exception e) {
             Logger.log(e.getMessage());
             boolean success = clickTheOldFashionedWay(elementPath, CurrentPage.getDriver().findElement(By.xpath(elementPath)));
