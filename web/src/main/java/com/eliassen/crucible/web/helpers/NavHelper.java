@@ -1,5 +1,6 @@
 package com.eliassen.crucible.web.helpers;
 
+import com.eliassen.crucible.core.helpers.Logger;
 import com.eliassen.crucible.web.drivers.WaitManager;
 import com.eliassen.crucible.web.drivers.mocks.MockWebElement;
 import com.eliassen.crucible.web.sharedobjects.CurrentPage;
@@ -32,10 +33,10 @@ public class NavHelper {
             waitForElementToBeClickable(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
             CurrentPage.getDriver().findElement(By.xpath(elementPath)).click();
         } catch (StaleElementReferenceException stere) {
-            element = CurrentPage.getDriver().findElement(By.xpath(elementPath));
-            clickOn(element, elementPath);
+            clickOn(CurrentPage.getDriver().findElement(By.xpath(elementPath)), elementPath);
         } catch (Exception e) {
-            boolean success = clickTheOldFashionedWay(elementPath, element);
+            Logger.log(e.getMessage());
+            boolean success = clickTheOldFashionedWay(elementPath, CurrentPage.getDriver().findElement(By.xpath(elementPath)));
             if (!success) {
                 throw e;
             }
