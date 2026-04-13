@@ -1,6 +1,7 @@
 package com.eliassen.crucible.web.helpers;
 
 import com.eliassen.crucible.core.helpers.Logger;
+import com.eliassen.crucible.core.sharedobjects.MasterMind;
 import com.eliassen.crucible.web.drivers.WaitManager;
 import com.eliassen.crucible.web.drivers.mocks.MockWebElement;
 import com.eliassen.crucible.web.sharedobjects.CurrentPage;
@@ -21,19 +22,13 @@ public class NavHelper {
     private NavHelper(){}
 
     public static void clickOn(String elementName) {
-        WebElement element = CurrentPage.element(elementName);
         String elementPath = CurrentPage.getPageObjectItem(elementName);
-
-        clickOn(element, elementPath);
-    }
-
-    public static void clickOn(WebElement element, String elementPath) {
         try {
             waitForElementToBeVisible(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
             waitForElementToBeClickable(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
             CurrentPage.getDriver().findElement(By.xpath(elementPath)).click();
         } catch (StaleElementReferenceException stere) {
-            clickOn(CurrentPage.getDriver().findElement(By.xpath(elementPath)), elementPath);
+            clickOn(elementPath);
         } catch (Exception e) {
             Logger.log(e.getMessage());
             boolean success = clickTheOldFashionedWay(elementPath, CurrentPage.getDriver().findElement(By.xpath(elementPath)));

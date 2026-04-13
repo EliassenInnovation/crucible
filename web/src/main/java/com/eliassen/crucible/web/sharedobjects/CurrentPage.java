@@ -17,11 +17,13 @@ import java.util.List;
 
 public class CurrentPage {
 
-    private CurrentPage(){}
+    private CurrentPage() {
+    }
 
     private static ScreenShotter screenShotter;
+
     public static ScreenShotter getScreenShotter() {
-        if(screenShotter == null){
+        if (screenShotter == null) {
             screenShotter = new ScreenShotter();
         }
         return screenShotter;
@@ -31,7 +33,7 @@ public class CurrentPage {
         return getDriver().getCurrentUrl();
     }
 
-    public static String getPageURL(){
+    public static String getPageURL() {
         return MasterMind.getPageURL();
     }
 
@@ -80,12 +82,7 @@ public class CurrentPage {
     }
 
     public static void clickOn(String elementNameOrXpath) {
-        //if is xpath
-        if (elementNameOrXpath.contains("//")) {
-            NavHelper.clickOn(CurrentPage.getElementByXpath(elementNameOrXpath), elementNameOrXpath);
-        } else {
-            NavHelper.clickOn(elementNameOrXpath);
-        }
+        NavHelper.clickOn(elementNameOrXpath);
     }
 
     public static void enterText(String elementName, String text) {
@@ -108,14 +105,15 @@ public class CurrentPage {
 
     /**
      * switch to a stored webdriver instance
+     *
      * @param driverName
      */
-    public static void switchToWebDriver(String driverName){
+    public static void switchToWebDriver(String driverName) {
         MasterMind.getCurrentThreadObjects().put(MasterMind.DRIVER, retrieveObject(driverName));
     }
 
     public static void storeCurrentWebDriver(String driverName) {
-        storeObject(driverName,getDriver());
+        storeObject(driverName, getDriver());
     }
 
     public static void scrollIntoView(String elementNameOrXpath) {
@@ -126,7 +124,7 @@ public class CurrentPage {
         NavHelper.scrollElementIntoView(element);
     }
 
-    public static void clear(String elementNameOrXpath){
+    public static void clear(String elementNameOrXpath) {
         NavHelper.clear(elementNameOrXpath);
     }
 
@@ -135,7 +133,7 @@ public class CurrentPage {
         return executor.executeScript(javascript);
     }
 
-    public static String getPageObjectItem(String itemName){
+    public static String getPageObjectItem(String itemName) {
         return MasterMind.getPageObjectItem(itemName);
     }
 
@@ -144,7 +142,7 @@ public class CurrentPage {
     }
 
     public static void store(String key, String value) {
-        MasterMind.store(key,value);
+        MasterMind.store(key, value);
     }
 
     public static Scenario getScenario() {
@@ -160,7 +158,7 @@ public class CurrentPage {
     }
 
     public static void storePersisted(String key, String value) {
-        MasterMind.storePersisted(key,value);
+        MasterMind.storePersisted(key, value);
     }
 
     public static String retrievePersisted(String key) {
@@ -171,7 +169,7 @@ public class CurrentPage {
         MasterMind.setEnvironment(environmentName);
     }
 
-    public static String getEnvironment(){
+    public static String getEnvironment() {
         return MasterMind.getEnvironment();
     }
 
@@ -187,19 +185,19 @@ public class CurrentPage {
         MasterMind.setPageObject(pageObject);
     }
 
-    public static PageObjectBase getPageObject(){
+    public static PageObjectBase getPageObject() {
         return MasterMind.getPageObject();
     }
 
-    public static <T> T retrieveObject(String key){
-        return (T)MasterMind.retrieveObject(key);
+    public static <T> T retrieveObject(String key) {
+        return (T) MasterMind.retrieveObject(key);
     }
 
-    public static void storeObject(String key, Object value){
-        MasterMind.storeObject(key,value);
+    public static void storeObject(String key, Object value) {
+        MasterMind.storeObject(key, value);
     }
 
-    public static void takeScreenShot(){
+    public static void takeScreenShot() {
         getScreenShotter().safeAttachScreenshot(getScenario());
     }
 
@@ -209,22 +207,24 @@ public class CurrentPage {
      * - @tagName
      * - tagName
      * - tagName_tag
+     *
      * @param tagName
      * @return
      */
-    public static boolean hasTag(String tagName){
+    public static boolean hasTag(String tagName) {
         String key = curateTagNameForStorage(tagName);
         return isPersisted(key);
     }
 
     /**
      * turns @tagName or tagName into tagName_tag
+     *
      * @param tagName
      * @return
      */
-    public static String curateTagNameForStorage(String tagName){
+    public static String curateTagNameForStorage(String tagName) {
         String curatedTagName = tagName.replace("@", "");
-        if(!curatedTagName.endsWith("_tag")){
+        if (!curatedTagName.endsWith("_tag")) {
             curatedTagName += "_tag";
         }
         return curatedTagName;
@@ -236,10 +236,11 @@ public class CurrentPage {
      * - @tagName
      * - tagName
      * - tagName_tag
+     *
      * @param tagName
      * @return
      */
-    public static String getTagValue(String tagName){
+    public static String getTagValue(String tagName) {
         return retrievePersisted(curateTagNameForStorage(tagName));
     }
 }

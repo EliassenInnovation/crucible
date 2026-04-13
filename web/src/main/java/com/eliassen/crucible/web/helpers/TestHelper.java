@@ -37,8 +37,7 @@ public class TestHelper extends TestHelperBase {
     }
 
     public static void findElementAndClickOn(String elementXPath) {
-        WebElement element = CurrentPage.getElementByXpath(elementXPath);
-        NavHelper.clickOn(element, elementXPath);
+        NavHelper.clickOn(elementXPath);
     }
 
     public static void checkSortOrderOfAListOfElements(String columnElement, AlphabeticalOrder orderType) {
