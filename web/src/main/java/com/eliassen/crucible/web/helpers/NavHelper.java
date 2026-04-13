@@ -28,9 +28,9 @@ public class NavHelper {
 
     public static void clickOn(WebElement element, String elementPath) {
         try {
-            waitForElementToBeVisible(element);
-            waitForElementToBeClickable(element);
-            element.click();
+            waitForElementToBeVisible(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
+            waitForElementToBeClickable(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
+            CurrentPage.getDriver().findElement(By.xpath(elementPath)).click();
         } catch (StaleElementReferenceException stere) {
             element = CurrentPage.getDriver().findElement(By.xpath(elementPath));
             clickOn(element, elementPath);
