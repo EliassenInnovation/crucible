@@ -5,7 +5,7 @@ let REFRESH_INTERVAL = 120000;
 let JENKINS_PROTOCOL = "http";
 
 //Jenkins host, if different than dashboard host
-let JENKINS_HOST = "10.152.2.12"
+let JENKINS_HOST = "10.152.2.8"
 
 //usually 8080 or 8443
 let JENKINS_PORT = "8080";

@@ -12,12 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.json.bak" />
     <None Remove="Content\bannerlogo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="appsettings.json.bak" />
   </ItemGroup>
 
   <ItemGroup>

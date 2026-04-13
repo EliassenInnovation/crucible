@@ -343,7 +343,7 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
             if (specificBuild != null) 
             {
-                if (JobsInQueueByName!.Contains(specificBuild.Name))
+                if (JobsInQueueByName!.Contains(build.Name))
                 {
                     buildResult.Result = QUEUED;
                 }
