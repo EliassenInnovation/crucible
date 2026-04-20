@@ -99,43 +99,50 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
         public async Task<List<JenkinsBuild>> GetJenkinsJobsAsync(string path = ApiWorker.JSON_API, string parent = "")
         {
-            //makes it so we only see a single folder
-            if(!DataGrabber.StartingFolder.Equals(string.Empty) && path.Equals(ApiWorker.JSON_API))
+            try
             {
-                string additionalPath = "";
-                string[] folderParts = DataGrabber.StartingFolder.Split(".");
-                foreach (string part in folderParts)
+                //makes it so we only see a single folder
+                if (!DataGrabber.StartingFolder.Equals(string.Empty) && path.Equals(ApiWorker.JSON_API))
                 {
-                    additionalPath += "/job/" + part;
+                    string additionalPath = "";
+                    string[] folderParts = DataGrabber.StartingFolder.Split(".");
+                    foreach (string part in folderParts)
+                    {
+                        additionalPath += "/job/" + part;
+                    }
+
+                    path = additionalPath + path;
                 }
-                path = additionalPath + path;
-            }
 
-            JObject buildsJson = ApiWorker.GetJsonFromApi(path);
-            if(buildsJson == null)  
-            {
-                return new List<JenkinsBuild>();
-            }
-
-            JArray jobsArray = (JArray)buildsJson.GetValue("jobs");
-            ConcurrentBag<JenkinsBuild> builds = new ConcurrentBag<JenkinsBuild>();
-
-            if (jobsArray.Count > 50)
-            {
-                await Parallel.ForEachAsync(jobsArray, async (job, _) =>
+                JObject buildsJson = ApiWorker.GetJsonFromApi(path);
+                if (buildsJson == null)
                 {
-                    await ProcessJobAsync(job, builds);
-                });
-            }
-            else
-            {
-                foreach (var job in jobsArray)
-                {
-                    await ProcessJobAsync(job, builds);
+                    return new List<JenkinsBuild>();
                 }
+
+                JArray jobsArray = (JArray)buildsJson.GetValue("jobs");
+                ConcurrentBag<JenkinsBuild> builds = new ConcurrentBag<JenkinsBuild>();
+
+                if (jobsArray.Count > 50)
+                {
+                    await Parallel.ForEachAsync(jobsArray, async (job, _) => { await ProcessJobAsync(job, builds); });
+                }
+                else
+                {
+                    foreach (var job in jobsArray)
+                    {
+                        await ProcessJobAsync(job, builds);
+                    }
+                }
+                return builds.ToList();
+            }
+            catch (Exception e)
+            {
+                LogWorker.LogError(e);
+                return null;
             }
 
-            return builds.ToList();
+            
         }
 
         private async Task ProcessJobAsync(JToken job, ConcurrentBag<JenkinsBuild> builds)
@@ -211,10 +218,9 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
             try
             {
-                JenkinsQueue =
-                    JsonConvert.DeserializeObject<JenkinsQueue>(
-                        ApiWorker.GetJsonFromApi(ApiWorker.QUEUE_API).ToString());
+                JenkinsQueue = JsonConvert.DeserializeObject<JenkinsQueue>(ApiWorker.GetJsonFromApi(ApiWorker.QUEUE_API).ToString());
                 JobsInQueueByName = JenkinsQueue!.Items.Select(i => i.Task.Name).ToList();
+                
                 List<JenkinsBuild> builds = await GetJenkinsJobsAsync();
                 if (builds != null)
                 {
@@ -225,6 +231,10 @@ namespace Lightwell_Testing_Dashboard_2.Workers
                     BuildsByStatusBuilder(TestResults);
                 }
             }
+            catch (Exception e)
+            {
+                LogWorker.LogError(e);
+            }
             finally
             {
                 Interlocked.Exchange(ref _alreadyRunning, 0); // Reset flag
@@ -233,7 +243,7 @@ namespace Lightwell_Testing_Dashboard_2.Workers
 
         public List<BuildResult> GetTestResults(string sort = NORMAL_SORT, bool refresh = false)
         {
-            if(TestResults == null)
+            if(TestResults == null || TestResults.Count == 0)
             {
                 BuildTestResults();
             }
@@ -414,7 +424,19 @@ namespace Lightwell_Testing_Dashboard_2.Workers
         public async Task<JunitTestResults> GetJunitTestCaseInfo(string buildDefinitionUrl, int buildNumber)
         {
             JObject results = await GetJunitTestCaseInfoJson(buildDefinitionUrl, buildNumber);
-            return JsonConvert.DeserializeObject<JunitTestResults>(results?.ToString());
+            if (results == null) return null;
+
+            try
+            {
+                return JsonConvert.DeserializeObject<JunitTestResults>(results.ToString());
+            }
+            catch (InvalidCastException castException)
+            {
+                throw new InvalidCastException(
+                    $"Failed to deserialize JunitTestResults for build '{buildDefinitionUrl}' #{buildNumber}. " +
+                    $"Raw JSON: {results}",
+                    castException);
+            }                 
         }
 
         public async Task<JObject> GetJunitTestCaseInfoJson(string buildDefinitionUrl, int buildNumber)

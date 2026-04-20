@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Dashboard</title>
+    <title id="browserTabTitle">Dashboard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -29,6 +29,9 @@
     <div id="sideBar" class="sideBar">
         <div id="logoDiv" style="height:100%;float:left;margin-right: 2em;">
             <img id="logoPic" src="" class="logoPic" style="height:100%" />
+        </div>
+        <div id="pageHeadingTitleDiv" style="display:inline-block;padding:1em 2em;position:absolute;right:0;">
+            <span id="pageHeadingTitle" style="font-size:1.4em;font-weight:bold;"></span>
         </div>
         <div id="currentFolderDiv" class="currentFolder" hidden></div>
         <div id="controlDiv" style="padding: .25em;" hidden>

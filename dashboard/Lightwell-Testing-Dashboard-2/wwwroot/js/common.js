@@ -23,6 +23,13 @@ function commonSetup(refreshFunctionCallback) {
     $('#jenkinsLink').attr('href', JENKINS_PROTOCOL + "://" + getHostName() + ":" + JENKINS_PORT + JENKINS_PREFIX);
     document.querySelector(':root').style.setProperty('--brand-color', SIDE_BAR_BOTTOM_COLOR)
 
+    if (typeof BROWSER_TAB_TITLE !== 'undefined' && BROWSER_TAB_TITLE) {
+        document.getElementById('browserTabTitle').innerText = BROWSER_TAB_TITLE;
+    }
+    if (typeof PAGE_HEADING_TITLE !== 'undefined' && PAGE_HEADING_TITLE) {
+        document.getElementById('pageHeadingTitle').innerText = PAGE_HEADING_TITLE;
+    }
+
     $('#dashboardLink').attr('href', getOrigin());
     $('#statusLink').attr('href', getOrigin() + "/Status");
     $('#summaryLink').attr('href', getOrigin() + "/Summary");

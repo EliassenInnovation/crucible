@@ -41,4 +41,9 @@ let REFRESH_SHOWS_FULL_DATE_TIME = true;
 //Summary page name
 let SUMMARY_PAGE_NAME = 'Summary';
 
+//Title shown in the browser tab
+let BROWSER_TAB_TITLE = 'Testing Dashboard';
+
+//Title shown on the page next to the logo
+let PAGE_HEADING_TITLE = 'Testing Dashboard';
 

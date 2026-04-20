@@ -15,10 +15,14 @@ let shortestTestDurationDiv = document.getElementById("shortestTestDurationDiv")
 let mostFailsDiv = document.getElementById("mostFailsDiv");
 let mostScenariosDiv = document.getElementById("mostScenariosDiv");
 let landingSpace = document.getElementById("landingSpace");
+let totalBuildingCell = document.getElementById("totalBuilding");
+let totalQueuedCell = document.getElementById("totalQueued");
 
 let totalPassed = 0;
 let totalFailed = 0;
 let totalTests = 0;
+let totalBuilding = 0;
+let totalQueued = 0;
 let totalBuildMinutes = 0;
 let totalTestMinutes = 0;
 
@@ -96,6 +100,8 @@ function clear() {
     $("#shortestTestDurationDiv p").remove();
     $("#mostFailsDiv p").remove();
     $("#mostScenariosDiv p").remove();
+    totalBuilding = 0;
+    totalQueued = 0;
 }
 
 function createPage() {
@@ -132,6 +138,13 @@ function createPage() {
     populateMostWidgets();
     landingSpace.style.display = "flex";
     setTotals();
+    
+    if(totalBuilding > 0){
+        totalBuildingCell.innerText = totalBuilding + " jobs building"
+    }
+    if(totalQueued > 0){
+        totalQueuedCell.innerText = totalQueued + " jobs in the queue"
+    }
 }
 
 function createTestResultRow(testResult) {
@@ -169,6 +182,12 @@ function createTestResultRow(testResult) {
     let resultClass = getResultClass(testResult.result);
     if (testResult.result != "SUCCESS" && testResult.result != "Building" && testResult.result != "disabled") {
         failedBuildPaths.push(createBuildPath(testResult.parent, testResult.buildName));
+    }
+    
+    if(resultClass === 'building'){
+        totalBuilding++;
+    } else if (resultClass === 'queued'){
+        totalQueued++;
     }
 
     let result = td(toTitleCase(testResult.result), "text", "centerText " + resultClass);

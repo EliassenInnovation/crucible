@@ -2,7 +2,7 @@
     ViewBag.Title = "Landing Page";
 }
 
-<div id="landingSpace" style="display: none; justify-content: center;">
+<div id="landingSpace" style="display: none; justify-content: space-evenly;">
     <div id="resultsTableDiv" class="landingSpace" style="display:inline-block;">
         <table id="resultsTable" class="sortable editableTable">
             <thead class="sticky">
@@ -28,7 +28,7 @@
                     <th id="totalTestDurationCell" class="centerText" title="Total Aggregate Test Time&#013;Hours:Minutes"></th>
                     <th id="totalDurationCell" class="centerText" title="Total Aggregate Build Time&#013;Hours:Minutes"></th>
                     <th class="centerText"></th>
-                    <th class="centerText"></th>
+                    <th id="totalBuilding" class="centerText"></th>
                     <th class="centerText"></th>
                 </tr>
                 <tr>
@@ -39,13 +39,13 @@
                     <th class="centerText"></th>
                     <th class="centerText"></th>
                     <th class="centerText"></th>
-                    <th class="centerText"></th>
+                    <th id="totalQueued" class="centerText"></th>
                     <th class="centerText"></th>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <div id="StatsDiv" class="landingSpace" style="display: inline-block; margin: 25px;">
+    <div id="StatsDiv" class="landingSpace" style="display: inline-block; margin: 25px; overflow-y: hidden;">
         <div id="piechart" style="position: sticky; top: 0px; display:flex; justify-content: center; width: 100%; background-color: #f2f2f2;height: 20em;width: 40em;"></div>
         <div id="infoSpace">
             <div id="jiraFrame" style="width: 100%; text-align: center; padding-top: 5em;">

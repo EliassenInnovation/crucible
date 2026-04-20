@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using Lightwell_Testing_Dashboard_2.Controllers;
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Lightwell_Testing_Dashboard_2
 {
@@ -29,7 +29,7 @@ namespace Lightwell_Testing_Dashboard_2
         {
             get
             {
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var basePath = AppContext.BaseDirectory;
                 var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
                 return Path.Combine(basePath, fileName);
             }
