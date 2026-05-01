@@ -141,9 +141,13 @@ function createPage() {
     
     if(totalBuilding > 0){
         totalBuildingCell.innerText = totalBuilding + " jobs building"
+    } else {
+        totalBuildingCell.innerText = "";
     }
     if(totalQueued > 0){
         totalQueuedCell.innerText = totalQueued + " jobs in the queue"
+    } else {
+        totalQueuedCell.innerText = "";
     }
 }
 
