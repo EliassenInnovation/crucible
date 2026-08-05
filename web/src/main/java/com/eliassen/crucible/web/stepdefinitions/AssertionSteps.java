@@ -43,9 +43,9 @@ public class AssertionSteps {
     public void iCheckThatIsVisible(String elementName) {
         try {
             WebElement element = NavHelper.getElement(elementName);
-            assertTrue(element.isDisplayed());
+            assertTrue("Element not found using xpath:" + CurrentPage.getPageObjectItem(elementName) + "!", element.isDisplayed());
         } catch (NoSuchElementException nse) {
-            assertTrue("Element not found using xpath:" + CurrentPage.getPageObjectItem(elementName) + "!", false);
+            fail("Element not found using xpath:" + CurrentPage.getPageObjectItem(elementName) + "!");
         }
     }
 
@@ -56,7 +56,7 @@ public class AssertionSteps {
             WebElement element = NavHelper.getElement(elementName);
             assertTrue(element.isDisplayed());
         } catch (NoSuchElementException nse) {
-            assertTrue("Element not found using xpath:" + CurrentPage.getPageObjectItem(elementName) + "!", false);
+            fail("Element not found using xpath:" + CurrentPage.getPageObjectItem(elementName) + "!");
         }
     }
 

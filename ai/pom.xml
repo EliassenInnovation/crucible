@@ -16,8 +16,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <langchain4j.version>1.12.2</langchain4j.version>
-        <langchain4j.beta.version>1.12.2-beta22</langchain4j.beta.version>
+        <langchain4j.version>1.18.1</langchain4j.version>
+        <langchain4j.beta.version>1.18.1-beta28</langchain4j.beta.version>
     </properties>
     <dependencies>
         <dependency>
@@ -25,6 +25,11 @@
             <artifactId>core</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-azure-open-ai</artifactId>
+            <version>${langchain4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -41,7 +46,11 @@
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-bedrock</artifactId>
             <version>${langchain4j.version}</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+            <version>${langchain4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.jai-imageio</groupId>
