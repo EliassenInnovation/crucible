@@ -23,7 +23,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public abstract class CrucibleWebdriver implements WebDriver
+public abstract class CrucibleWebdriver implements WebDriver, JavascriptExecutor
 {
 	public static final String CHROME = "chrome";
 
@@ -162,11 +162,31 @@ public abstract class CrucibleWebdriver implements WebDriver
 	}
 
 	@Override
-	public Options manage() 
+	public Options manage()
 	{
 		return instance.manage();
 	}
-	
+
+	@Override
+	public Object executeScript(String script, Object... args)
+	{
+		if(instance instanceof JavascriptExecutor)
+		{
+			return ((JavascriptExecutor) instance).executeScript(script, args);
+		}
+		return null;
+	}
+
+	@Override
+	public Object executeAsyncScript(String script, Object... args)
+	{
+		if(instance instanceof JavascriptExecutor)
+		{
+			return ((JavascriptExecutor) instance).executeAsyncScript(script, args);
+		}
+		return null;
+	}
+
 	public void goTo(String url)
 	{
 		String navigationAttempts = "navigation attempts";

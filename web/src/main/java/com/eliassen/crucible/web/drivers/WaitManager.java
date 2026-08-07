@@ -244,7 +244,11 @@ public class WaitManager {
      */
     public static Duration getWaitDuration(String settingName, TimeUnit timeUnit) {
         double seconds = getWaitTimeByName(settingName);
-        long value = (long) seconds; // Convert to long for Duration methods
+        // Preserve sub-second precision: casting seconds to a whole number first would zero out
+        // fractional waits (e.g. the 0.1s polling interval) and drop the fraction from values
+        // like 2.5s. The requested TimeUnit only affects the granularity we report in, so both
+        // SECONDS and MILLISECONDS resolve to the same millisecond-accurate Duration.
+        long millis = Math.round(seconds * 1000);
 
         if (timeUnit == null) {
             timeUnit = TimeUnit.MILLISECONDS; // Default to milliseconds
@@ -252,12 +256,11 @@ public class WaitManager {
 
         switch (timeUnit) {
             case SECONDS:
-                return Duration.ofSeconds(value);
             case MILLISECONDS:
-                return Duration.ofMillis(value * 1000); // Convert seconds to milliseconds
+                return Duration.ofMillis(millis);
             default:
                 Logger.logError("Unsupported TimeUnit: " + timeUnit + ". Defaulting to milliseconds.");
-                return Duration.ofMillis(value * 1000);
+                return Duration.ofMillis(millis);
         }
     }
 

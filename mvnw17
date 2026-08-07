@@ -1,0 +1,6 @@
+#!/bin/sh
+# Maven wrapper that pins JAVA_HOME to the JDK 17 install this project builds against
+# (avoids picking up an older default JDK on the PATH). Delegates to the standard ./mvnw.
+export JAVA_HOME="c:/jdk-17.0.8"
+DIR="$(cd "$(dirname "$0")" && pwd)"
+exec "$DIR/mvnw" "$@"

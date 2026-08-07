@@ -1,0 +1,124 @@
+================================================================================
+Inter-step timing / Angular settle flakiness — analysis & fix
+Date: 2026-08-07
+================================================================================
+
+PROBLEM (as reported)
+---------------------
+There is a small delay between Cucumber steps. Sometimes that delay is too
+small and a test fails at random even though the application is working fine:
+Angular's update cycle has not quite finished, so the expected element is not
+visible when it is looked for. The failure screenshot (captured a moment later)
+shows the element present/visible — confirming it was a timing race, not a real
+defect.
+
+
+HOW SETTLING WORKS TODAY (before the fix)
+-----------------------------------------
+Every element look-up funnels through the same "wait out the app, then find"
+pattern:
+  CurrentPage.element(...) -> getElementByXpath()  (CurrentPage.java:66)
+     -> MasterMind.checkProgress()
+     -> NavHelper.waitForElementToBeVisible(xpath)
+     -> driver.findElement(...)
+  NavHelper.clickOn/enterText/... each call CurrentPage.checkProgress() first.
+
+checkProgress() delegates to the client's ProgressHandler.checkProgress()
+(MasterMind.java:74). THAT is the "small delay between steps."
+
+
+ROOT CAUSES (three, compounding)
+--------------------------------
+1. The settle delay was a FIXED SLEEP, not a wait for the app to be idle.
+   - Base ProgressHandler.checkProgress() was empty.
+   - The reference DemoProgressHandler.checkProgress() did TestHelper.wait(1)
+     => Thread.sleep(1000). A hard 1s sleep is exactly the flaky failure mode:
+     when Angular runs past that second, the element isn't visible yet.
+   - ProgressHandler already declared PROGRESS_INDICATOR_XPATH and
+     PROGRESS_INDICATOR_FINISHED_STATE_XPATH — the fields meant to make this
+     deterministic — but NOTHING in the codebase ever read them. The intended
+     "wait for the spinner" design was stubbed and never implemented.
+
+2. The primary look-up path waited for PRESENCE, not VISIBILITY (real bug).
+   - NavHelper.waitForElementToBeVisible(String xpath) used
+     ExpectedConditions.presenceOfElementLocated (element merely attached to the
+     DOM). An element Angular has inserted but not yet rendered satisfies that
+     wait immediately; the next action/assertion that needs it *visible* fails.
+   - The WebElement overload right above it correctly used visibilityOf — so the
+     string-xpath version simply contradicted its own name.
+
+3. WaitManager silently truncated sub-second waits.
+   - getWaitDuration did `long value = (long) seconds; ofMillis(value*1000)`,
+     discarding any fraction. POLLING_INTERVAL default 0.1s truncated to 0, and
+     fractional timeouts couldn't be tuned.
+
+
+DECISION
+--------
+For the deterministic settle, use BOTH signals with the spinner as the default:
+  - Generic spinner-xpath wait as the framework default (works for any SPA), AND
+  - An opt-in Angular-testability wait behind a config flag (robust for the
+    Angular change-detection/render timing described), no-op on non-Angular pages.
+
+
+CHANGES IMPLEMENTED
+-------------------
+A. NavHelper.waitForElementToBeVisible(String) — presenceOfElementLocated ->
+   visibilityOfElementLocated. (web/.../helpers/NavHelper.java)
+
+B. ProgressHandler now implements a real, deterministic default settle
+   (core/.../sharedobjects/ProgressHandler.java):
+     - If PROGRESS_INDICATOR_XPATH is set, wait for it to become invisible
+       (or, if PROGRESS_INDICATOR_FINISHED_STATE_XPATH is set, for that to be
+       visible). Empty => skipped (backward compatible).
+     - If settings.waitForAngular=true, additionally poll
+       window.getAllAngularTestabilities().every(t => t.isStable()) until stable.
+       No-op on non-Angular pages / when testability is unavailable.
+     - Bounded by PROGRESS_HANDLER_MAX_WAIT (seconds, fractional ok, default 15) —
+       a setting that was documented but previously unimplemented.
+     - Best-effort: never throws (settling can't fail a run). Temporarily sets the
+       implicit wait to 0 during settling and restores it, so each poll isn't
+       slowed by the implicit timeout.
+     - Fields widened from package-private to protected so subclasses in other
+       packages can actually set them.
+
+   Supporting change: CrucibleWebdriver now implements JavascriptExecutor
+   (delegates executeScript/executeAsyncScript to the wrapped instance; returns
+   null when the instance can't run JS, e.g. the mock driver) so the Angular
+   wait can execute JS through the driver wrapper.
+
+   DemoProgressHandler updated: fixed 1s sleep removed; now a reference showing
+   how to configure the indicator xpath / waitForAngular.
+
+C. WaitManager.getWaitDuration — compute millis as Math.round(seconds*1000) so
+   fractional and sub-second waits (incl. POLLING_INTERVAL) are preserved.
+
+
+HOW CONSUMERS FIX THEIR (ANGULAR) APP
+-------------------------------------
+Either or both, in the client framework's ProgressHandler / config.json:
+  - Set PROGRESS_INDICATOR_XPATH to the app's global spinner element, and/or
+  - Set settings.waitForAngular=true to wait for Angular to report stable.
+Tune the ceiling with PROGRESS_HANDLER_MAX_WAIT (seconds) if needed.
+
+
+TESTS
+-----
+- core: ProgressHandlerTests (no-op when no driver; Angular disabled by default;
+  PROGRESS_HANDLER_MAX_WAIT default 15000ms and honours a fractional override).
+- web: WaitManagerTests (+2: sub-second and fractional-second precision);
+  CrucibleWebdriverJavascriptTests (JS delegation is null-safe on non-JS drivers).
+All green via a modern surefire (2.12.4 can't run JUnit 5):
+  ./mvnw17 -pl <mod> test-compile
+  ./mvnw17 -pl <mod> org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test \
+      -Dtest=<Tests> -DfailIfNoTests=false
+Full reactor `./mvnw17 clean install -DskipTests` builds all 9 modules.
+
+
+NOT DONE / FOLLOW-UPS
+---------------------
+- Passing the (now-accurate) POLLING_INTERVAL into the NavHelper WebDriverWaits
+  was left out to keep scope tight; the truncation fix unblocks it.
+- The long-standing NavHelper.clickOn unbounded stale-element recursion is a
+  separate known issue and was not touched here.
+================================================================================

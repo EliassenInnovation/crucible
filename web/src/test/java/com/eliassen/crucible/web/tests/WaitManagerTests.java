@@ -4,6 +4,8 @@ import com.eliassen.crucible.web.drivers.WaitManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class WaitManagerTests {
@@ -56,6 +58,21 @@ class WaitManagerTests {
 
         WaitManager.setClickableExplicitWait(7);
         assertEquals(7, WaitManager.getClickableExplicitWait());
+    }
+
+    @Test
+    void getWaitDuration_preservesSubSecondPrecision() {
+        WaitManager.setPollingIntervalTime(0.1); // 100ms
+        assertEquals(100, WaitManager.getWaitDuration(WaitManager.POLLING_INTERVAL).toMillis());
+    }
+
+    @Test
+    void getWaitDuration_preservesFractionalSeconds() {
+        WaitManager.setGlobalExplicitWait(2.5);
+        assertEquals(2500, WaitManager.getWaitDuration(WaitManager.GLOBAL_EXPLICIT_WAIT).toMillis());
+        // The requested TimeUnit changes reporting granularity only, not the underlying value.
+        assertEquals(2500,
+                WaitManager.getWaitDuration(WaitManager.GLOBAL_EXPLICIT_WAIT, TimeUnit.SECONDS).toMillis());
     }
 
     @Test

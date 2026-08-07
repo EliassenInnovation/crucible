@@ -143,12 +143,11 @@ public class NavHelper {
         }
     }
 
-    //TODO double check
     public static void waitForElementToBeVisible(String xpath) {
         CurrentPage.checkProgress();
         WebDriverWait wait = new WebDriverWait(CurrentPage.getDriver(),
                 WaitManager.getWaitDuration(WaitManager.VISIBLE_EXPLICIT_WAIT));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
     /**
