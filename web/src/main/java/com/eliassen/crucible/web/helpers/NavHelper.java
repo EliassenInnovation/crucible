@@ -21,14 +21,19 @@ import java.util.concurrent.TimeUnit;
 public class NavHelper {
     private NavHelper(){}
 
-    public static void clickOn(String elementName) {
-        String elementPath = CurrentPage.getPageObjectItem(elementName);
+    public static void clickOn(String elementNameOrXpath) {
+        String elementPath = "";
+        if(!elementNameOrXpath.contains("//")){
+            elementPath = CurrentPage.getPageObjectItem(elementNameOrXpath);
+        } else {
+            elementPath = elementNameOrXpath;
+        }
+
         try {
-            waitForElementToBeVisible(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
-            waitForElementToBeClickable(CurrentPage.getDriver().findElement(By.xpath(elementPath)));
+            waitForElementToBeClickable(CurrentPage.element(elementNameOrXpath));
             CurrentPage.getDriver().findElement(By.xpath(elementPath)).click();
         } catch (StaleElementReferenceException stere) {
-            clickOn(elementName);
+            clickOn(elementNameOrXpath);
         } catch (Exception e) {
             Logger.log(e.getMessage());
             boolean success = clickTheOldFashionedWay(elementPath, CurrentPage.getDriver().findElement(By.xpath(elementPath)));
