@@ -1,9 +1,12 @@
 package com.eliassen.crucible.web.stepdefinitions;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Scenario;
 import com.eliassen.crucible.common.helpers.SystemHelper;
 import com.eliassen.crucible.core.helpers.Logger;
+import com.eliassen.crucible.core.pageobjects.ThreadObjectTable;
+import com.eliassen.crucible.core.sharedobjects.MasterMind;
 import com.eliassen.crucible.web.helpers.DomHelper;
 import com.eliassen.crucible.web.helpers.ScreenShotter;
 import com.eliassen.crucible.web.sharedobjects.CurrentPage;
@@ -33,6 +36,26 @@ public class AfterHooks {
                 try {
                     ((CrucibleWebdriver) objectEntry.getValue()).quit();
                 } catch (WebDriverException w){/* we don't care */}
+            }
+        }
+    }
+
+    /**
+     * Runs once after the entire suite. When driver reuse is enabled, drivers are
+     * intentionally kept alive across scenarios and are therefore never quit by the
+     * per-scenario teardown above. Quit any that are still open across every thread
+     * so we don't leave orphaned browser windows/processes behind after the run.
+     */
+    @AfterAll
+    public static void closeAllReusedDrivers() {
+        for (Object threadTable : MasterMind.getAllThreadObjectTables()) {
+            if (threadTable instanceof ThreadObjectTable) {
+                Object driver = ((ThreadObjectTable) threadTable).get(MasterMind.DRIVER);
+                if (driver instanceof CrucibleWebdriver) {
+                    try {
+                        ((CrucibleWebdriver) driver).quit();
+                    } catch (WebDriverException w) {/* already gone */}
+                }
             }
         }
     }

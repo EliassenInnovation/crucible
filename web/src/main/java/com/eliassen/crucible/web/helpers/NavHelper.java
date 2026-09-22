@@ -92,6 +92,20 @@ public class NavHelper {
                 CurrentPage.getDriver().hasQuit() ||
                 CurrentPage.getDriver().isClosed() ||
                 !CurrentPage.getDriver().driverReusable()) {
+            // We are about to replace the current driver with a brand new one.
+            // Quit the outgoing driver first so its browser window/process is torn
+            // down. Without this, a driver that is being replaced (dead session,
+            // non-reusable, etc.) is simply overwritten in the thread object map and
+            // its Chrome window is left orphaned on screen.
+            CrucibleWebdriver outgoingDriver = CurrentPage.getDriver();
+            if (outgoingDriver != null) {
+                try {
+                    outgoingDriver.quit();
+                } catch (Exception e) {
+                    Logger.log("Failed to quit the outgoing driver before creating a new one: " + e.getMessage());
+                }
+            }
+
             String browserName = System.getProperty("browser");
             String driverName;
 

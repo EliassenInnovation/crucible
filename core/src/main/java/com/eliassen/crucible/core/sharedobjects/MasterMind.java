@@ -26,6 +26,19 @@ public abstract class MasterMind {
         return Thread.currentThread().getName();
     }
 
+    /**
+     * Returns a snapshot of the per-thread object tables for every thread that has
+     * stored objects. Intended for end-of-suite cleanup (e.g. quitting reused web
+     * drivers that are deliberately kept alive across scenarios and are therefore
+     * never torn down by normal per-scenario teardown).
+     */
+    public static java.util.Collection<Object> getAllThreadObjectTables() {
+        if (_threadObjects == null) {
+            return java.util.Collections.emptyList();
+        }
+        return new java.util.ArrayList<>(_threadObjects.values());
+    }
+
     public static ThreadObjectTable getCurrentThreadObjects() {
         String threadName = getThreadName().toLowerCase();
 
