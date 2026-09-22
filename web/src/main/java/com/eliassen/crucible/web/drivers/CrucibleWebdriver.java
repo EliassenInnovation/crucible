@@ -20,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -169,29 +170,21 @@ public abstract class CrucibleWebdriver implements WebDriver
 	
 	public void goTo(String url)
 	{
-		String navigationAttempts = "navigation attempts";
 		try {
 			instance.navigate().to(url);
 		} catch (TimeoutException t) {
-			int navigationAttemptsCount = 1;
-			if(CurrentPage.isPersisted(navigationAttempts)){
-				navigationAttemptsCount = Integer.parseInt(CurrentPage.retrievePersisted(navigationAttempts));
+			// The page did not fire its ready event within the configured page load
+			// timeout. With the EAGER page load strategy the browser has almost always
+			// already navigated and rendered the DOM; some slow trailing resource is
+			// still outstanding. Rather than sleeping and re-navigating the whole page,
+			// stop the outstanding requests and continue - the page objects' explicit
+			// waits will confirm the page is actually ready.
+			Logger.log("Page load for " + url + " exceeded the page load timeout; stopping outstanding requests and continuing.");
+			try {
+				((JavascriptExecutor) instance).executeScript("window.stop();");
+			} catch (WebDriverException e) {
+				Logger.logError("Unable to stop page load for " + url + ": " + e.getMessage());
 			}
-
-			if(navigationAttemptsCount > 2){
-				throw t;
-			} else {
-				Logger.log("Failed to navigate to " + url + ", attempted " + navigationAttemptsCount + " times. Trying again in 20 seconds");
-				CurrentPage.storePersisted(navigationAttempts,String.valueOf(++navigationAttemptsCount));
-                try {
-                    Thread.sleep(20000);
-					goTo(url);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-		} finally {
-			CurrentPage.storePersisted(navigationAttempts,String.valueOf(0));
 		}
 	}
 
@@ -201,7 +194,11 @@ public abstract class CrucibleWebdriver implements WebDriver
 		switch(driverName)
 		{
 			case firefox, firefox_headless:
-				webDriver = new FirefoxDriver();
+				FirefoxOptions firefoxOptions = new FirefoxOptions();
+				// Return control once the DOM is ready instead of waiting for every
+				// sub-resource; explicit waits handle element readiness afterwards.
+				firefoxOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+				webDriver = new FirefoxDriver(firefoxOptions);
 				webDriver.manage().window().setSize(new Dimension(1600,900));
 				webDriver.manage().deleteAllCookies();
 				webDriver.manage().window().maximize();

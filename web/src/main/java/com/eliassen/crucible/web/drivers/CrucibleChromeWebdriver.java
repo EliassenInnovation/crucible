@@ -4,6 +4,7 @@ import com.eliassen.crucible.common.helpers.SystemHelper;
 import com.eliassen.crucible.core.helpers.Logger;
 import com.eliassen.crucible.web.helpers.TestHelper;
 import org.json.JSONArray;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -52,6 +53,11 @@ public class CrucibleChromeWebdriver extends CrucibleWebdriver
         chromePrefs.put("download.default_directory", getDownloadFilePath());
 
         ChromeOptions options = new ChromeOptions();
+        // Return control once the DOM is ready (DOMContentLoaded) instead of waiting
+        // for every sub-resource (images, analytics, trailing XHRs) to finish. This
+        // avoids spurious page-load timeouts on already-usable pages; explicit waits
+        // handle element readiness afterwards.
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         options.addArguments("--window-size=1600,900");
         options.addArguments("--start-maximized");

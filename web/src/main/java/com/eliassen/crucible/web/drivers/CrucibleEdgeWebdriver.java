@@ -3,6 +3,7 @@ package com.eliassen.crucible.web.drivers;
 import com.eliassen.crucible.common.helpers.FileHelper;
 import com.eliassen.crucible.core.helpers.Logger;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -34,6 +35,9 @@ public class CrucibleEdgeWebdriver extends CrucibleWebdriver {
         edgePrefs.put("download.default_directory", getDownloadFilePath());
 
         EdgeOptions options = new EdgeOptions();
+        // Return control once the DOM is ready (DOMContentLoaded) instead of waiting
+        // for every sub-resource to finish; explicit waits handle element readiness.
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         options.addArguments("disable-notifications");
         options.addArguments("no-sandbox");
